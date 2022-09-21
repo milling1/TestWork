@@ -18,6 +18,8 @@
 		CE418B1828D1D7B5000CEADD /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE418B1628D1D7B5000CEADD /* TaskTableViewCell.swift */; };
 		CE418B1928D1D7B5000CEADD /* TaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE418B1728D1D7B5000CEADD /* TaskTableViewCell.xib */; };
 		CE6192F228D34BF300E3179F /* HomeViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6192F128D34BF300E3179F /* HomeViewPresenter.swift */; };
+		CEB3D58528D9898300CACFBA /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB3D58428D9898300CACFBA /* UIColor+Extension.swift */; };
+		CEB3D58928D994E200CACFBA /* DataStorageImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB3D58828D994E200CACFBA /* DataStorageImp.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		CE418B1628D1D7B5000CEADD /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		CE418B1728D1D7B5000CEADD /* TaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskTableViewCell.xib; sourceTree = "<group>"; };
 		CE6192F128D34BF300E3179F /* HomeViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewPresenter.swift; sourceTree = "<group>"; };
+		CEB3D58428D9898300CACFBA /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		CEB3D58828D994E200CACFBA /* DataStorageImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStorageImp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +100,8 @@
 		CE418AF928D1C768000CEADD /* TaskManager */ = {
 			isa = PBXGroup;
 			children = (
+				CEB3D58728D994B900CACFBA /* DataStorageImp */,
+				CEB3D58328D9894C00CACFBA /* UIColor+Extension */,
 				CE098B7428D44BD700756F06 /* Home */,
 				CE418AFA28D1C768000CEADD /* AppDelegate.swift */,
 				CE418AFC28D1C768000CEADD /* SceneDelegate.swift */,
@@ -112,6 +118,22 @@
 				CE6192F128D34BF300E3179F /* HomeViewPresenter.swift */,
 			);
 			path = Presenter;
+			sourceTree = "<group>";
+		};
+		CEB3D58328D9894C00CACFBA /* UIColor+Extension */ = {
+			isa = PBXGroup;
+			children = (
+				CEB3D58428D9898300CACFBA /* UIColor+Extension.swift */,
+			);
+			path = "UIColor+Extension";
+			sourceTree = "<group>";
+		};
+		CEB3D58728D994B900CACFBA /* DataStorageImp */ = {
+			isa = PBXGroup;
+			children = (
+				CEB3D58828D994E200CACFBA /* DataStorageImp.swift */,
+			);
+			path = DataStorageImp;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -190,9 +212,11 @@
 				CE6192F228D34BF300E3179F /* HomeViewPresenter.swift in Sources */,
 				CE3BE43228D3173B002FE686 /* DataSourceDiffable.swift in Sources */,
 				CE418B1028D1C796000CEADD /* ViewController.swift in Sources */,
+				CEB3D58928D994E200CACFBA /* DataStorageImp.swift in Sources */,
 				CE3BE43028D2FA2D002FE686 /* ModelTask.swift in Sources */,
 				CE418AFB28D1C768000CEADD /* AppDelegate.swift in Sources */,
 				CE418AFD28D1C768000CEADD /* SceneDelegate.swift in Sources */,
+				CEB3D58528D9898300CACFBA /* UIColor+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

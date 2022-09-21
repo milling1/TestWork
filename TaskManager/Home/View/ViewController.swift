@@ -7,14 +7,13 @@
 
 import UIKit
 
-enum Section: Int {
-    case active = 0
-    case completed = 1
+enum Section: String, CaseIterable {
+    case Active
+    case Completed
 }
 
 protocol HomeView: AnyObject {
-    func presentModels(taskActive: [ModelTask], taskCompleted: [ModelTask])
-    
+    func presentModels(testData: [ModelTask])
 }
 
 class ViewController: UIViewController, UITableViewDelegate, HomeView {
@@ -24,16 +23,15 @@ class ViewController: UIViewController, UITableViewDelegate, HomeView {
     @IBOutlet weak private var tableView: UITableView!
     @IBOutlet weak private var addButton: UIButton!
     
-    
-    private var arrayDiffableActive = [ModelTask]()
-    private var arrayDiffableCompleted = [ModelTask]()
+    private var arrayDiffable = [ModelTask]()
     
     private var dataSource: DataSourceDiffable!
     var presenter: HomeViewPresenter!
+//    var delegate: DataStorage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UINib(nibName: String(describing: TaskTableViewCell.self), bundle: nil), forCellReuseIdentifier: String(describing: TaskTableViewCell.self))
+        tableView.register(UINib(nibName: String(describing: TaskTableViewCell.self), bundle: nil), forCellReuseIdentifier: TaskTableViewCell.identifire)
         configureTableView()
         
         addButton.setTitle("", for: .normal)
@@ -43,35 +41,38 @@ class ViewController: UIViewController, UITableViewDelegate, HomeView {
     
     private func configureTableView() {
         dataSource = DataSourceDiffable(tableView: tableView, cellProvider: { (tableView, indexPath, itemIdentifier) -> UITableViewCell? in
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TaskTableViewCell.self), for: indexPath) as? TaskTableViewCell else {return UITableViewCell()}
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifire, for: indexPath) as? TaskTableViewCell else {return UITableViewCell()}
             
-            switch indexPath.section {
-            case Section.active.rawValue:
-                cell.taskLabel.text = self.arrayDiffableActive[indexPath.item].task
+            switch itemIdentifier.type {
+            case .Active:
+                cell.configureCell(viewModel: itemIdentifier)
                 cell.circleLabel.backgroundColor = .white
                 
-            case Section.completed.rawValue:
-                cell.taskLabel.text = self.arrayDiffableCompleted[indexPath.item].task
+            case .Completed:
+                cell.configureCell(viewModel: itemIdentifier)
                 cell.strikethroughText(label: cell.taskLabel)
-            default:
-                return UITableViewCell()
+                
             }
             return cell
         })
         var snapshot = NSDiffableDataSourceSnapshot<Section, ModelTask>()
-        snapshot.appendSections([Section.active, Section.completed])
-       
-        snapshot.appendItems(ModelTask.testDataActive(), toSection: Section.active)
-        snapshot.appendItems(ModelTask.testDataCompleted(), toSection: Section.completed)
+        let sections = [Section.Active, Section.Completed]
+        snapshot.appendSections(sections)
+        
+        for section in sections {
+            let items = DataStorageImp.testData().filter { task in
+                task.type == section
+            }
+            snapshot.appendItems(items, toSection: section)
+        }
+        
         dataSource.apply(snapshot, animatingDifferences: true)
     }
     
-    
     //MARK: - Presenter Delegate
     
-    func presentModels(taskActive: [ModelTask], taskCompleted: [ModelTask]) {
-        arrayDiffableActive = taskActive
-        arrayDiffableCompleted = taskCompleted
+    func presentModels(testData: [ModelTask]) {
+        arrayDiffable = testData
     }
 }
     

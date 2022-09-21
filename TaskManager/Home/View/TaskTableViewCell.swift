@@ -12,9 +12,8 @@ class TaskTableViewCell: UITableViewCell {
     @IBOutlet weak var circleLabel: UILabel!
     @IBOutlet weak var taskLabel: UILabel!
     
+    static let identifire = String(describing: TaskTableViewCell.self)
     
-    
-
     override func awakeFromNib() {
         super.awakeFromNib()
         setupCircleLabel()
@@ -24,10 +23,9 @@ class TaskTableViewCell: UITableViewCell {
     private func setupCircleLabel() {
         circleLabel.layer.cornerRadius = circleLabel.frame.width / 2
         circleLabel.layer.masksToBounds = true
-        let color = hexStringToUIColor(hex: "#D44F4F")
+        let color = UIColor.init(netHex: 0xD44F4F)
         circleLabel.layer.borderColor = color.cgColor
         circleLabel.layer.borderWidth = 2.0
-        
     }
     
     private func setupTaskLabel() {
@@ -41,27 +39,8 @@ class TaskTableViewCell: UITableViewCell {
         taskLabel.attributedText = attributeString
     }
     
-    //MARK: - Set Hex color
-    private func hexStringToUIColor (hex:String) -> UIColor {
-        var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
-
-        if (cString.hasPrefix("#")) {
-            cString.remove(at: cString.startIndex)
-        }
-
-        if ((cString.count) != 6) {
-            return UIColor.gray
-        }
-
-        var rgbValue:UInt64 = 0
-        Scanner(string: cString).scanHexInt64(&rgbValue)
-
-        return UIColor(
-            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
-            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
-            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
-            alpha: CGFloat(1.0)
-        )
+    func configureCell(viewModel: ModelTask) {
+        taskLabel.text = "\(viewModel.title)" + "\n\(viewModel.description ?? "")"
     }
-    
 }
+

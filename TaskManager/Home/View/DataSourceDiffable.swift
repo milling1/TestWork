@@ -10,25 +10,14 @@ import UIKit
 
 class DataSourceDiffable: UITableViewDiffableDataSource<Section, ModelTask> {
     
-    let sectionArray = ["Active", "Completed"]
-    
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return sectionArray[section]
+        snapshot().sectionIdentifiers[section].rawValue
     }
     
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-
-        let myLabel = UILabel()
-        myLabel.frame = CGRect(x: 20, y: 8, width: 320, height: 20)
-        myLabel.font = UIFont.boldSystemFont(ofSize: 18)
-        myLabel.text = self.tableView(tableView, titleForHeaderInSection: section)
-        let headerView = UIView()
-        headerView.addSubview(myLabel)
-        return headerView
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        let myLabel = UILabel.appearance(whenContainedInInstancesOf: [UITableViewHeaderFooterView.self])
+        myLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        myLabel.textColor = .none
+        return myLabel.text
     }
-    
-    
-    
-
 }

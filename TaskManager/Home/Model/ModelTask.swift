@@ -7,26 +7,24 @@
 
 import Foundation
 
-struct ModelTask: Hashable {
-    var task: String
-    
-    
-    
-    static func testDataActive() -> [ModelTask] {
-        return [
-            ModelTask(task: "Go for run \nRun for at least 5 km today"),
-            ModelTask(task: "Read chapter 7 from the new book"),
-            ModelTask(task: "Practice guitar \nAt least 20 min today")
-        ]
-    }
-    
-    static func testDataCompleted() -> [ModelTask] {
-        return [
-            ModelTask(task: "Schedule a dentist appointment \nSaturday at 14:00"),
-            ModelTask(task: "PLay the piano \nPractice 2 new pieces")
-        ]
-    }
+enum Description {
+    case active
+    case completed
 }
+
+struct ModelTask: Hashable {
+    
+    let uuid = UUID()
+    var title: String
+    var description: String?
+    var type: Section
+    
+    
+}
+
+
+    
+    
 
 
 

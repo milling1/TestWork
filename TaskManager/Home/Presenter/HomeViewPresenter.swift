@@ -6,26 +6,21 @@
 //
 
 import Foundation
-import UIKit
-
 
 protocol HomeViewPresenter {
-    
     func viewDidLoad()
 }
-
 
 class HomeViewPresenterImp: HomeViewPresenter {
     
     var view: HomeView
     
-    func viewDidLoad() {
-        view.presentModels(taskActive:ModelTask.testDataActive(), taskCompleted: ModelTask.testDataCompleted())
-    }
-    
     init (view: HomeView) {
         self.view = view
     }
     
+    func viewDidLoad() {
+        view.presentModels(testData: DataStorageImp.testData())
+    }
 }
 
