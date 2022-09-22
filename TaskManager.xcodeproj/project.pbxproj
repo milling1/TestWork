@@ -17,6 +17,7 @@
 		CE418B1128D1C796000CEADD /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE418B0F28D1C796000CEADD /* ViewController.xib */; };
 		CE418B1828D1D7B5000CEADD /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE418B1628D1D7B5000CEADD /* TaskTableViewCell.swift */; };
 		CE418B1928D1D7B5000CEADD /* TaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE418B1728D1D7B5000CEADD /* TaskTableViewCell.xib */; };
+		CE42261E28DC4D5200066B54 /* HomeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE42261D28DC4D5200066B54 /* HomeBuilder.swift */; };
 		CE6192F228D34BF300E3179F /* HomeViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6192F128D34BF300E3179F /* HomeViewPresenter.swift */; };
 		CEB3D58528D9898300CACFBA /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB3D58428D9898300CACFBA /* UIColor+Extension.swift */; };
 		CEB3D58928D994E200CACFBA /* DataStorageImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB3D58828D994E200CACFBA /* DataStorageImp.swift */; };
@@ -35,6 +36,7 @@
 		CE418B0F28D1C796000CEADD /* ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		CE418B1628D1D7B5000CEADD /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		CE418B1728D1D7B5000CEADD /* TaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskTableViewCell.xib; sourceTree = "<group>"; };
+		CE42261D28DC4D5200066B54 /* HomeBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBuilder.swift; sourceTree = "<group>"; };
 		CE6192F128D34BF300E3179F /* HomeViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewPresenter.swift; sourceTree = "<group>"; };
 		CEB3D58428D9898300CACFBA /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		CEB3D58828D994E200CACFBA /* DataStorageImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStorageImp.swift; sourceTree = "<group>"; };
@@ -57,6 +59,7 @@
 				CE098B7528D44BF900756F06 /* View */,
 				CE3BE42E28D2FA16002FE686 /* Model */,
 				CE6192EE28D34BA200E3179F /* Presenter */,
+				CE42261D28DC4D5200066B54 /* HomeBuilder.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 				CE418B1828D1D7B5000CEADD /* TaskTableViewCell.swift in Sources */,
 				CE6192F228D34BF300E3179F /* HomeViewPresenter.swift in Sources */,
 				CE3BE43228D3173B002FE686 /* DataSourceDiffable.swift in Sources */,
+				CE42261E28DC4D5200066B54 /* HomeBuilder.swift in Sources */,
 				CE418B1028D1C796000CEADD /* ViewController.swift in Sources */,
 				CEB3D58928D994E200CACFBA /* DataStorageImp.swift in Sources */,
 				CE3BE43028D2FA2D002FE686 /* ModelTask.swift in Sources */,

@@ -7,19 +7,21 @@
 
 import Foundation
 
-//protocol DataStorage {
-//    func testData() -> [ModelTask]
-//}
+protocol DataStorage {
+    func addTask (_ task: ModelTask)
+    var tasks: [ModelTask] { get }
+}
 
-class DataStorageImp {
+class DataStorageImp: DataStorage {
     
-    static func testData() -> [ModelTask] {
-        return [
-            ModelTask(title: "Go for run", description: "Run for at least 5 km today", type: .Active),
-            ModelTask(title: "Read chapter 7 from the new book", type: .Active),
-            ModelTask(title: "Practice guitar", description: "At least 20 min today", type: .Active),
-            ModelTask(title: "Schedule a dentist appointment", description: "Saturday at 14:00", type: .Completed),
-            ModelTask(title: "PLay the piano", description: "Practice 2 new pieces", type: .Completed)
-        ]
+   var tasks = [ ModelTask(title: "Go for run", description: "Run for at least 5 km today", type: .Active),
+                         ModelTask(title: "Read chapter 7 from the new book", type: .Active),
+                         ModelTask(title: "Practice guitar", description: "At least 20 min today", type: .Active),
+                         ModelTask(title: "Schedule a dentist appointment", description: "Saturday at 14:00", type: .Completed),
+                         ModelTask(title: "PLay the piano", description: "Practice 2 new pieces", type: .Completed)
+    ]
+    
+   func addTask (_ task: ModelTask) {
+        tasks.append(task)
     }
 }

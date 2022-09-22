@@ -13,14 +13,16 @@ protocol HomeViewPresenter {
 
 class HomeViewPresenterImp: HomeViewPresenter {
     
-    var view: HomeView
+    weak var view: HomeView?
     
-    init (view: HomeView) {
+    private var dataStorage: DataStorage
+    
+    init (view: HomeView, dataStorage: DataStorage) {
         self.view = view
+        self.dataStorage = dataStorage
     }
     
     func viewDidLoad() {
-        view.presentModels(testData: DataStorageImp.testData())
+        view?.showTask(tasks: dataStorage.tasks)
     }
 }
-

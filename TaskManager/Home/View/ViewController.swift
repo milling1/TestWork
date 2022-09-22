@@ -13,7 +13,7 @@ enum Section: String, CaseIterable {
 }
 
 protocol HomeView: AnyObject {
-    func presentModels(testData: [ModelTask])
+    func showTask(tasks: [ModelTask])
 }
 
 class ViewController: UIViewController, UITableViewDelegate, HomeView {
@@ -23,23 +23,24 @@ class ViewController: UIViewController, UITableViewDelegate, HomeView {
     @IBOutlet weak private var tableView: UITableView!
     @IBOutlet weak private var addButton: UIButton!
     
-    private var arrayDiffable = [ModelTask]()
-    
     private var dataSource: DataSourceDiffable!
     var presenter: HomeViewPresenter!
-//    var delegate: DataStorage!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UINib(nibName: String(describing: TaskTableViewCell.self), bundle: nil), forCellReuseIdentifier: TaskTableViewCell.identifire)
+    
         configureTableView()
-        
-        addButton.setTitle("", for: .normal)
-        
         presenter.viewDidLoad()
+        addButton.setTitle("", for: .normal)
+    }
+    
+    @IBAction private func addTaskButton(_ sender: Any) {
+       
     }
     
     private func configureTableView() {
+        tableView.register(UINib(nibName: String(describing: TaskTableViewCell.self), bundle: nil), forCellReuseIdentifier: TaskTableViewCell.identifire)
+        
         dataSource = DataSourceDiffable(tableView: tableView, cellProvider: { (tableView, indexPath, itemIdentifier) -> UITableViewCell? in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifire, for: indexPath) as? TaskTableViewCell else {return UITableViewCell()}
             
@@ -50,34 +51,24 @@ class ViewController: UIViewController, UITableViewDelegate, HomeView {
                 
             case .Completed:
                 cell.configureCell(viewModel: itemIdentifier)
-                cell.strikethroughText(label: cell.taskLabel)
+                cell.strikethroughText()
                 
             }
             return cell
         })
-        var snapshot = NSDiffableDataSourceSnapshot<Section, ModelTask>()
+    }
+    
+    func showTask (tasks: [ModelTask]) {
+        var snapshot = dataSource.snapshot()
         let sections = [Section.Active, Section.Completed]
         snapshot.appendSections(sections)
-        
+
         for section in sections {
-            let items = DataStorageImp.testData().filter { task in
+            let items = tasks.filter { task in
                 task.type == section
             }
             snapshot.appendItems(items, toSection: section)
         }
-        
         dataSource.apply(snapshot, animatingDifferences: true)
     }
-    
-    //MARK: - Presenter Delegate
-    
-    func presentModels(testData: [ModelTask]) {
-        arrayDiffable = testData
-    }
 }
-    
-    
-    
-    
-    
-

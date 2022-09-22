@@ -13,21 +13,8 @@ enum Description {
 }
 
 struct ModelTask: Hashable {
-    
     let uuid = UUID()
     var title: String
     var description: String?
     var type: Section
-    
-    
 }
-
-
-    
-    
-
-
-
-
-
-

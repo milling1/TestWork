@@ -23,8 +23,7 @@ class TaskTableViewCell: UITableViewCell {
     private func setupCircleLabel() {
         circleLabel.layer.cornerRadius = circleLabel.frame.width / 2
         circleLabel.layer.masksToBounds = true
-        let color = UIColor.init(netHex: 0xD44F4F)
-        circleLabel.layer.borderColor = color.cgColor
+        circleLabel.layer.borderColor = UIColor.taskManagerColor.cgColor
         circleLabel.layer.borderWidth = 2.0
     }
     
@@ -32,15 +31,18 @@ class TaskTableViewCell: UITableViewCell {
         taskLabel.numberOfLines = 0
     }
     
-    func strikethroughText(label: UILabel) {
-        
-        let attributeString:NSMutableAttributedString = NSMutableAttributedString(string: label.text ?? "")
+    func strikethroughText() {
+        let attributeString: NSMutableAttributedString = NSMutableAttributedString(string: taskLabel.text ?? "")
         attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSRange(location: 0, length: attributeString.length))
         taskLabel.attributedText = attributeString
     }
     
     func configureCell(viewModel: ModelTask) {
-        taskLabel.text = "\(viewModel.title)" + "\n\(viewModel.description ?? "")"
+        var text = viewModel.title
+        
+        if let description = viewModel.description {
+            text.append(contentsOf: "\n\(viewModel.description ?? "")")
+        }
+        taskLabel.text = text
     }
 }
-
