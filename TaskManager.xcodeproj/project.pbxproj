@@ -13,8 +13,8 @@
 		CE418AFD28D1C768000CEADD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE418AFC28D1C768000CEADD /* SceneDelegate.swift */; };
 		CE418B0428D1C769000CEADD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE418B0328D1C769000CEADD /* Assets.xcassets */; };
 		CE418B0728D1C769000CEADD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE418B0528D1C769000CEADD /* LaunchScreen.storyboard */; };
-		CE418B1028D1C796000CEADD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE418B0E28D1C796000CEADD /* ViewController.swift */; };
-		CE418B1128D1C796000CEADD /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE418B0F28D1C796000CEADD /* ViewController.xib */; };
+		CE418B1028D1C796000CEADD /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE418B0E28D1C796000CEADD /* HomeViewController.swift */; };
+		CE418B1128D1C796000CEADD /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE418B0F28D1C796000CEADD /* HomeViewController.xib */; };
 		CE418B1828D1D7B5000CEADD /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE418B1628D1D7B5000CEADD /* TaskTableViewCell.swift */; };
 		CE418B1928D1D7B5000CEADD /* TaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE418B1728D1D7B5000CEADD /* TaskTableViewCell.xib */; };
 		CE42261E28DC4D5200066B54 /* HomeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE42261D28DC4D5200066B54 /* HomeBuilder.swift */; };
@@ -32,8 +32,8 @@
 		CE418B0328D1C769000CEADD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE418B0628D1C769000CEADD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE418B0828D1C769000CEADD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CE418B0E28D1C796000CEADD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		CE418B0F28D1C796000CEADD /* ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
+		CE418B0E28D1C796000CEADD /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		CE418B0F28D1C796000CEADD /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		CE418B1628D1D7B5000CEADD /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		CE418B1728D1D7B5000CEADD /* TaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskTableViewCell.xib; sourceTree = "<group>"; };
 		CE42261D28DC4D5200066B54 /* HomeBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBuilder.swift; sourceTree = "<group>"; };
@@ -68,8 +68,8 @@
 			isa = PBXGroup;
 			children = (
 				CE3BE43128D3173B002FE686 /* DataSourceDiffable.swift */,
-				CE418B0E28D1C796000CEADD /* ViewController.swift */,
-				CE418B0F28D1C796000CEADD /* ViewController.xib */,
+				CE418B0E28D1C796000CEADD /* HomeViewController.swift */,
+				CE418B0F28D1C796000CEADD /* HomeViewController.xib */,
 				CE418B1628D1D7B5000CEADD /* TaskTableViewCell.swift */,
 				CE418B1728D1D7B5000CEADD /* TaskTableViewCell.xib */,
 			);
@@ -199,7 +199,7 @@
 			files = (
 				CE418B1928D1D7B5000CEADD /* TaskTableViewCell.xib in Resources */,
 				CE418B0728D1C769000CEADD /* LaunchScreen.storyboard in Resources */,
-				CE418B1128D1C796000CEADD /* ViewController.xib in Resources */,
+				CE418B1128D1C796000CEADD /* HomeViewController.xib in Resources */,
 				CE418B0428D1C769000CEADD /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -215,7 +215,7 @@
 				CE6192F228D34BF300E3179F /* HomeViewPresenter.swift in Sources */,
 				CE3BE43228D3173B002FE686 /* DataSourceDiffable.swift in Sources */,
 				CE42261E28DC4D5200066B54 /* HomeBuilder.swift in Sources */,
-				CE418B1028D1C796000CEADD /* ViewController.swift in Sources */,
+				CE418B1028D1C796000CEADD /* HomeViewController.swift in Sources */,
 				CEB3D58928D994E200CACFBA /* DataStorageImp.swift in Sources */,
 				CE3BE43028D2FA2D002FE686 /* ModelTask.swift in Sources */,
 				CE418AFB28D1C768000CEADD /* AppDelegate.swift in Sources */,

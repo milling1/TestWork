@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  HomeViewController.swift
 //  TaskManager
 //
 //  Created by user on 14.09.2022.
@@ -16,7 +16,7 @@ protocol HomeView: AnyObject {
     func showTask(tasks: [ModelTask])
 }
 
-class ViewController: UIViewController, UITableViewDelegate, HomeView {
+class HomeViewController: UIViewController, UITableViewDelegate, HomeView {
     
     @IBOutlet weak private var editButton: UIButton!
     @IBOutlet weak private var taskLabel: UILabel!
