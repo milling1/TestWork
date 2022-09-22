@@ -39,18 +39,17 @@ class HomeViewController: UIViewController, UITableViewDelegate, HomeView {
     }
     
     private func configureTableView() {
-        tableView.register(UINib(nibName: String(describing: TaskTableViewCell.self), bundle: nil), forCellReuseIdentifier: TaskTableViewCell.identifire)
+        tableView.register(UINib(nibName: String(describing: TaskTableViewCell.self), bundle: nil), forCellReuseIdentifier: TaskTableViewCell.identifier)
         
         dataSource = DataSourceDiffable(tableView: tableView, cellProvider: { (tableView, indexPath, itemIdentifier) -> UITableViewCell? in
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifire, for: indexPath) as? TaskTableViewCell else {return UITableViewCell()}
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier, for: indexPath) as? TaskTableViewCell else {return UITableViewCell()}
             
             switch itemIdentifier.type {
             case .Active:
-                cell.configureCell(viewModel: itemIdentifier)
-                cell.circleLabel.backgroundColor = .white
+                cell.configureCell(viewModel: itemIdentifier, backgroundColor: .white)
                 
             case .Completed:
-                cell.configureCell(viewModel: itemIdentifier)
+                cell.configureCell(viewModel: itemIdentifier, backgroundColor: .taskManagerColor)
                 cell.strikethroughText()
                 
             }

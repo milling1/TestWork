@@ -9,10 +9,10 @@ import UIKit
 
 class TaskTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var circleLabel: UILabel!
-    @IBOutlet weak var taskLabel: UILabel!
+    @IBOutlet weak private var circleLabel: UILabel!
+    @IBOutlet weak private var taskLabel: UILabel!
     
-    static let identifire = String(describing: TaskTableViewCell.self)
+    static let identifier = String(describing: TaskTableViewCell.self)
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,11 +37,12 @@ class TaskTableViewCell: UITableViewCell {
         taskLabel.attributedText = attributeString
     }
     
-    func configureCell(viewModel: ModelTask) {
+    func configureCell(viewModel: ModelTask, backgroundColor: UIColor) {
         var text = viewModel.title
+        circleLabel.backgroundColor = backgroundColor
         
         if let description = viewModel.description {
-            text.append(contentsOf: "\n\(viewModel.description ?? "")")
+            text.append(contentsOf: "\n\(viewModel.description)")
         }
         taskLabel.text = text
     }

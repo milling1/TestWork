@@ -7,11 +7,6 @@
 
 import Foundation
 
-enum Description {
-    case active
-    case completed
-}
-
 struct ModelTask: Hashable {
     let uuid = UUID()
     var title: String

@@ -1,5 +1,5 @@
 //
-//  DataStorageImp.swift
+//  DataStorage.swift
 //  TaskManager
 //
 //  Created by user on 20.09.2022.
@@ -8,7 +8,7 @@
 import Foundation
 
 protocol DataStorage {
-    func addTask (_ task: ModelTask)
+    func addTask(_ task: ModelTask)
     var tasks: [ModelTask] { get }
 }
 
@@ -21,7 +21,7 @@ class DataStorageImp: DataStorage {
                          ModelTask(title: "PLay the piano", description: "Practice 2 new pieces", type: .Completed)
     ]
     
-   func addTask (_ task: ModelTask) {
+   func addTask(_ task: ModelTask) {
         tasks.append(task)
     }
 }

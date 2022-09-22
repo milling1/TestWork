@@ -20,7 +20,7 @@
 		CE42261E28DC4D5200066B54 /* HomeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE42261D28DC4D5200066B54 /* HomeBuilder.swift */; };
 		CE6192F228D34BF300E3179F /* HomeViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6192F128D34BF300E3179F /* HomeViewPresenter.swift */; };
 		CEB3D58528D9898300CACFBA /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB3D58428D9898300CACFBA /* UIColor+Extension.swift */; };
-		CEB3D58928D994E200CACFBA /* DataStorageImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB3D58828D994E200CACFBA /* DataStorageImp.swift */; };
+		CEB3D58928D994E200CACFBA /* DataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB3D58828D994E200CACFBA /* DataStorage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,7 +39,7 @@
 		CE42261D28DC4D5200066B54 /* HomeBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBuilder.swift; sourceTree = "<group>"; };
 		CE6192F128D34BF300E3179F /* HomeViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewPresenter.swift; sourceTree = "<group>"; };
 		CEB3D58428D9898300CACFBA /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
-		CEB3D58828D994E200CACFBA /* DataStorageImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStorageImp.swift; sourceTree = "<group>"; };
+		CEB3D58828D994E200CACFBA /* DataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStorage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,9 +103,8 @@
 		CE418AF928D1C768000CEADD /* TaskManager */ = {
 			isa = PBXGroup;
 			children = (
-				CEB3D58728D994B900CACFBA /* DataStorageImp */,
-				CEB3D58328D9894C00CACFBA /* UIColor+Extension */,
-				CE098B7428D44BD700756F06 /* Home */,
+				CEB3D58328D9894C00CACFBA /* Extensions */,
+				CEB3D58728D994B900CACFBA /* Storages */,
 				CE418AFA28D1C768000CEADD /* AppDelegate.swift */,
 				CE418AFC28D1C768000CEADD /* SceneDelegate.swift */,
 				CE418B0328D1C769000CEADD /* Assets.xcassets */,
@@ -123,20 +122,21 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
-		CEB3D58328D9894C00CACFBA /* UIColor+Extension */ = {
+		CEB3D58328D9894C00CACFBA /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				CEB3D58428D9898300CACFBA /* UIColor+Extension.swift */,
 			);
-			path = "UIColor+Extension";
+			path = Extensions;
 			sourceTree = "<group>";
 		};
-		CEB3D58728D994B900CACFBA /* DataStorageImp */ = {
+		CEB3D58728D994B900CACFBA /* Storages */ = {
 			isa = PBXGroup;
 			children = (
-				CEB3D58828D994E200CACFBA /* DataStorageImp.swift */,
+				CEB3D58828D994E200CACFBA /* DataStorage.swift */,
+				CE098B7428D44BD700756F06 /* Home */,
 			);
-			path = DataStorageImp;
+			path = Storages;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -216,7 +216,7 @@
 				CE3BE43228D3173B002FE686 /* DataSourceDiffable.swift in Sources */,
 				CE42261E28DC4D5200066B54 /* HomeBuilder.swift in Sources */,
 				CE418B1028D1C796000CEADD /* HomeViewController.swift in Sources */,
-				CEB3D58928D994E200CACFBA /* DataStorageImp.swift in Sources */,
+				CEB3D58928D994E200CACFBA /* DataStorage.swift in Sources */,
 				CE3BE43028D2FA2D002FE686 /* ModelTask.swift in Sources */,
 				CE418AFB28D1C768000CEADD /* AppDelegate.swift in Sources */,
 				CE418AFD28D1C768000CEADD /* SceneDelegate.swift in Sources */,
