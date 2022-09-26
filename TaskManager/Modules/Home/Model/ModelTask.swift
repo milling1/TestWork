@@ -12,5 +12,4 @@ struct ModelTask: Hashable {
     var title: String
     var description: String?
     var type: Section
-    var isLastItem: Bool?
 }

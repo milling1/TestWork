@@ -1,5 +1,5 @@
 //
-//  HomeDataSource.swift
+//  DataSourceDiffable.swift
 //  TaskManager
 //
 //  Created by user on 15.09.2022.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class HomeDataSource: UITableViewDiffableDataSource<Section, ModelTask> {
+class DataSourceDiffable: UITableViewDiffableDataSource<Section, ModelTask> {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         snapshot().sectionIdentifiers[section].rawValue

@@ -53,16 +53,16 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="KN8-2g-pXF">
-                        <rect key="frame" x="32" y="0.0" width="288" height="49"/>
+                        <rect key="frame" x="32" y="0.0" width="288" height="50"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h91-of-Ocz">
-                                <rect key="frame" x="0.0" y="0.0" width="288" height="24.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="288" height="25"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SBj-Jh-zaT">
-                                <rect key="frame" x="0.0" y="24.5" width="288" height="24.5"/>
+                                <rect key="frame" x="0.0" y="25" width="288" height="25"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" red="0.56470588235294117" green="0.56470588235294117" blue="0.56470588235294117" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -70,30 +70,19 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </stackView>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0TZ-iN-LJd">
-                        <rect key="frame" x="32" y="49" width="288" height="1"/>
-                        <color key="backgroundColor" red="0.85490196078431369" green="0.85490196078431369" blue="0.85490196078431369" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="1" id="gWe-aR-LNs"/>
-                        </constraints>
-                    </view>
                 </subviews>
                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="0TZ-iN-LJd" secondAttribute="bottom" id="2fA-Tj-SMG"/>
-                    <constraint firstAttribute="trailing" secondItem="0TZ-iN-LJd" secondAttribute="trailing" id="6bW-fb-V0R"/>
                     <constraint firstItem="KN8-2g-pXF" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="7LP-jk-on4"/>
                     <constraint firstItem="66M-UX-30O" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="8LK-TP-a5k"/>
                     <constraint firstItem="KN8-2g-pXF" firstAttribute="leading" secondItem="66M-UX-30O" secondAttribute="trailing" constant="16" id="KMG-JY-oZr"/>
+                    <constraint firstAttribute="bottom" secondItem="KN8-2g-pXF" secondAttribute="bottom" id="Udf-4p-48w"/>
                     <constraint firstAttribute="trailing" secondItem="KN8-2g-pXF" secondAttribute="trailing" id="b39-yN-nlE"/>
                     <constraint firstItem="66M-UX-30O" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="iaF-Ny-XXn"/>
-                    <constraint firstItem="0TZ-iN-LJd" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="32" id="j4v-GD-EXB"/>
-                    <constraint firstItem="0TZ-iN-LJd" firstAttribute="top" secondItem="KN8-2g-pXF" secondAttribute="bottom" id="jfN-0q-nRo"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="borderViewCell" destination="0TZ-iN-LJd" id="tex-0F-G6n"/>
                 <outlet property="circleLabel" destination="66M-UX-30O" id="ike-kh-4Y3"/>
                 <outlet property="descriptionLabel" destination="SBj-Jh-zaT" id="NHw-0W-K3S"/>
                 <outlet property="titleLabel" destination="h91-of-Ocz" id="TYw-kS-1S3"/>

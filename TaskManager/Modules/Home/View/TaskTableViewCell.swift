@@ -10,10 +10,9 @@ import UIKit
 class TaskTableViewCell: UITableViewCell {
 
     @IBOutlet weak private var circleLabel: UILabel!
-    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak private var titleLabel: UILabel!
     @IBOutlet weak private var descriptionLabel: UILabel!
-    @IBOutlet weak var borderViewCell: UIView!
-    
+
     static let identifier = String(describing: TaskTableViewCell.self)
     
     override func awakeFromNib() {
@@ -36,7 +35,7 @@ class TaskTableViewCell: UITableViewCell {
         descriptionLabel.numberOfLines = 0
     }
     
-    func changeCompletedTask() {
+    private func changeCompletedTask() {
         let attributeString: NSMutableAttributedString = NSMutableAttributedString(string: titleLabel.text ?? "")
         attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSRange(location: 0, length: attributeString.length))
         titleLabel.attributedText = attributeString
@@ -58,6 +57,5 @@ class TaskTableViewCell: UITableViewCell {
             changeCompletedTask()
         }
         circleLabel.backgroundColor = backgroundColor
-        borderViewCell.isHidden = viewModel.isLastItem ?? false
     }
 }
