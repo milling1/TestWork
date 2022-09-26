@@ -43,7 +43,6 @@ class TaskTableViewCell: UITableViewCell {
     }
     
     func configureCell(viewModel: ModelTask) {
-        
         titleLabel.text = viewModel.title
         descriptionLabel.text = viewModel.description
         

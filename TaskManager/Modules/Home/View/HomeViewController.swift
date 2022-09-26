@@ -30,9 +30,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, HomeView {
         super.viewDidLoad()
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0.0
-        } else {
-            // Fallback on earlier versions
-        }
+        } 
         configureTableView()
         presenter.viewDidLoad()
         addButton.setTitle("", for: .normal)
@@ -47,7 +45,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, HomeView {
         
         dataSource = DataSourceDiffable(tableView: tableView, cellProvider: { (tableView, indexPath, itemIdentifier) -> UITableViewCell? in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier, for: indexPath) as? TaskTableViewCell else {return UITableViewCell()}
-        
+            
             cell.configureCell(viewModel: itemIdentifier)
             return cell
         })
