@@ -17,7 +17,7 @@ class HomeViewPresenterImp: HomeViewPresenter {
     
     private var dataStorage: DataStorage
     
-    init (view: HomeView, dataStorage: DataStorage) {
+    init(view: HomeView, dataStorage: DataStorage) {
         self.view = view
         self.dataStorage = dataStorage
     }

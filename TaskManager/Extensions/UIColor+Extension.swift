@@ -20,4 +20,5 @@ extension UIColor {
     }
     
     static let taskManagerColor = UIColor.init(netHex: 0xD44F4F)
+    static let completedColor = UIColor.init(netHex: 0x909090)
 }

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CE3BE43028D2FA2D002FE686 /* ModelTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3BE42F28D2FA2D002FE686 /* ModelTask.swift */; };
-		CE3BE43228D3173B002FE686 /* DataSourceDiffable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3BE43128D3173B002FE686 /* DataSourceDiffable.swift */; };
+		CE3BE43228D3173B002FE686 /* HomeDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3BE43128D3173B002FE686 /* HomeDataSource.swift */; };
 		CE418AFB28D1C768000CEADD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE418AFA28D1C768000CEADD /* AppDelegate.swift */; };
 		CE418AFD28D1C768000CEADD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE418AFC28D1C768000CEADD /* SceneDelegate.swift */; };
 		CE418B0428D1C769000CEADD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE418B0328D1C769000CEADD /* Assets.xcassets */; };
@@ -25,7 +25,7 @@
 
 /* Begin PBXFileReference section */
 		CE3BE42F28D2FA2D002FE686 /* ModelTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTask.swift; sourceTree = "<group>"; };
-		CE3BE43128D3173B002FE686 /* DataSourceDiffable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceDiffable.swift; sourceTree = "<group>"; };
+		CE3BE43128D3173B002FE686 /* HomeDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDataSource.swift; sourceTree = "<group>"; };
 		CE418AF728D1C768000CEADD /* TaskManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE418AFA28D1C768000CEADD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE418AFC28D1C768000CEADD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -56,10 +56,10 @@
 		CE098B7428D44BD700756F06 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				CE098B7528D44BF900756F06 /* View */,
-				CE3BE42E28D2FA16002FE686 /* Model */,
-				CE6192EE28D34BA200E3179F /* Presenter */,
 				CE42261D28DC4D5200066B54 /* HomeBuilder.swift */,
+				CE3BE42E28D2FA16002FE686 /* Model */,
+				CE098B7528D44BF900756F06 /* View */,
+				CE6192EE28D34BA200E3179F /* Presenter */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -67,7 +67,7 @@
 		CE098B7528D44BF900756F06 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				CE3BE43128D3173B002FE686 /* DataSourceDiffable.swift */,
+				CE3BE43128D3173B002FE686 /* HomeDataSource.swift */,
 				CE418B0E28D1C796000CEADD /* HomeViewController.swift */,
 				CE418B0F28D1C796000CEADD /* HomeViewController.xib */,
 				CE418B1628D1D7B5000CEADD /* TaskTableViewCell.swift */,
@@ -103,6 +103,7 @@
 		CE418AF928D1C768000CEADD /* TaskManager */ = {
 			isa = PBXGroup;
 			children = (
+				CED7F60E28E17F7F00533113 /* Modules */,
 				CEB3D58328D9894C00CACFBA /* Extensions */,
 				CEB3D58728D994B900CACFBA /* Storages */,
 				CE418AFA28D1C768000CEADD /* AppDelegate.swift */,
@@ -134,9 +135,16 @@
 			isa = PBXGroup;
 			children = (
 				CEB3D58828D994E200CACFBA /* DataStorage.swift */,
-				CE098B7428D44BD700756F06 /* Home */,
 			);
 			path = Storages;
+			sourceTree = "<group>";
+		};
+		CED7F60E28E17F7F00533113 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				CE098B7428D44BD700756F06 /* Home */,
+			);
+			path = Modules;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,7 +221,7 @@
 			files = (
 				CE418B1828D1D7B5000CEADD /* TaskTableViewCell.swift in Sources */,
 				CE6192F228D34BF300E3179F /* HomeViewPresenter.swift in Sources */,
-				CE3BE43228D3173B002FE686 /* DataSourceDiffable.swift in Sources */,
+				CE3BE43228D3173B002FE686 /* HomeDataSource.swift in Sources */,
 				CE42261E28DC4D5200066B54 /* HomeBuilder.swift in Sources */,
 				CE418B1028D1C796000CEADD /* HomeViewController.swift in Sources */,
 				CEB3D58928D994E200CACFBA /* DataStorage.swift in Sources */,

@@ -23,12 +23,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, HomeView {
     @IBOutlet weak private var tableView: UITableView!
     @IBOutlet weak private var addButton: UIButton!
     
-    private var dataSource: DataSourceDiffable!
+    private var dataSource: HomeDataSource!
     var presenter: HomeViewPresenter!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+       
         configureTableView()
         presenter.viewDidLoad()
         addButton.setTitle("", for: .normal)
@@ -41,32 +41,40 @@ class HomeViewController: UIViewController, UITableViewDelegate, HomeView {
     private func configureTableView() {
         tableView.register(UINib(nibName: String(describing: TaskTableViewCell.self), bundle: nil), forCellReuseIdentifier: TaskTableViewCell.identifier)
         
-        dataSource = DataSourceDiffable(tableView: tableView, cellProvider: { (tableView, indexPath, itemIdentifier) -> UITableViewCell? in
+        dataSource = HomeDataSource(tableView: tableView, cellProvider: { (tableView, indexPath, itemIdentifier) -> UITableViewCell? in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier, for: indexPath) as? TaskTableViewCell else {return UITableViewCell()}
-            
+
             switch itemIdentifier.type {
             case .Active:
-                cell.configureCell(viewModel: itemIdentifier, backgroundColor: .white)
+                cell.configureCell(viewModel: itemIdentifier)
                 
             case .Completed:
-                cell.configureCell(viewModel: itemIdentifier, backgroundColor: .taskManagerColor)
-                cell.strikethroughText()
-                
+                cell.configureCell(viewModel: itemIdentifier)
             }
+
             return cell
         })
     }
     
-    func showTask (tasks: [ModelTask]) {
+    func showTask(tasks: [ModelTask]) {
         var snapshot = dataSource.snapshot()
         let sections = [Section.Active, Section.Completed]
         snapshot.appendSections(sections)
 
         for section in sections {
-            let items = tasks.filter { task in
+            var items = tasks.filter { task in
                 task.type == section
             }
-            snapshot.appendItems(items, toSection: section)
+            var tasks = [ModelTask]()
+            
+            for item in items {
+                var task = item
+                if item == items.last {
+                    task.isLastItem = true
+                }
+                tasks.append(task)
+            }
+            snapshot.appendItems(tasks, toSection: section)
         }
         dataSource.apply(snapshot, animatingDifferences: true)
     }

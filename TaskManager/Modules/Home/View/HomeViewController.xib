@@ -23,37 +23,14 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VRS-YX-iJI">
-                    <rect key="frame" x="310" y="432.5" width="72" height="31"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="31" id="QNi-ev-u3q"/>
-                    </constraints>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" image="list.bullet" catalog="system" title="Edit">
-                        <color key="baseForegroundColor" red="0.83137254901960778" green="0.30980392156862746" blue="0.30980392156862746" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                    </buttonConfiguration>
-                </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Manager" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GLk-V7-ySF">
-                    <rect key="frame" x="24" y="108" width="253" height="48"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="48" id="GrW-Kd-uXN"/>
-                        <constraint firstAttribute="width" constant="253" id="KZM-Co-Tmk"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="39"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="1Dy-F4-RDc">
-                    <rect key="frame" x="0.0" y="196" width="414" height="422"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="51" estimatedRowHeight="-1" sectionHeaderHeight="50" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="1Dy-F4-RDc">
+                    <rect key="frame" x="16" y="178" width="398" height="568"/>
                     <color key="separatorColor" systemColor="labelColor"/>
                     <color key="sectionIndexColor" systemColor="labelColor"/>
                     <color key="sectionIndexBackgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ME-BE-6rP">
-                    <rect key="frame" x="310" y="36" width="72" height="31"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="31" id="oCt-CR-qg1"/>
-                    </constraints>
+                    <rect key="frame" x="310" y="50" width="72" height="31"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" image="list.bullet" catalog="system" title="Edit">
                         <color key="baseForegroundColor" red="0.83137254901960778" green="0.30980392156862746" blue="0.30980392156862746" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -70,22 +47,30 @@
                         <action selector="addTaskButton:" destination="-1" eventType="touchUpInside" id="Ake-GF-t8H"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Manager" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GLk-V7-ySF">
+                    <rect key="frame" x="24" y="90" width="257" height="48"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="48" id="GrW-Kd-uXN"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="40"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="hd2-ga-8wX" firstAttribute="top" secondItem="1Dy-F4-RDc" secondAttribute="bottom" constant="50" id="0CV-NU-InS"/>
+                <constraint firstItem="1Dy-F4-RDc" firstAttribute="top" secondItem="GLk-V7-ySF" secondAttribute="bottom" constant="40" id="3wO-5p-fjk"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="4ME-BE-6rP" secondAttribute="trailing" constant="32" id="8Em-CQ-jlV"/>
                 <constraint firstItem="hd2-ga-8wX" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="332" id="8Vg-1i-tQV"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="1Dy-F4-RDc" secondAttribute="bottom" constant="244" id="KcI-mj-e7y"/>
-                <constraint firstItem="4ME-BE-6rP" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="36" id="N9T-uc-9nR"/>
+                <constraint firstItem="1Dy-F4-RDc" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="G1u-Kt-duv"/>
                 <constraint firstItem="GLk-V7-ySF" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="24" id="O4h-g6-kCf"/>
                 <constraint firstAttribute="bottom" secondItem="hd2-ga-8wX" secondAttribute="bottom" constant="32" id="PsS-nO-D32"/>
-                <constraint firstItem="1Dy-F4-RDc" firstAttribute="top" secondItem="GLk-V7-ySF" secondAttribute="bottom" constant="40" id="RYa-KF-gou"/>
                 <constraint firstAttribute="trailing" secondItem="hd2-ga-8wX" secondAttribute="trailing" constant="32" id="WsK-XT-5Se"/>
+                <constraint firstItem="4ME-BE-6rP" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="50" id="X0M-pA-7Bd"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="1Dy-F4-RDc" secondAttribute="trailing" id="c9o-nY-JId"/>
-                <constraint firstItem="1Dy-F4-RDc" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="ofR-ju-6dW"/>
-                <constraint firstAttribute="trailing" secondItem="4ME-BE-6rP" secondAttribute="trailing" constant="32" id="u8k-Pq-to3"/>
-                <constraint firstItem="VRS-YX-iJI" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="v9g-JF-DYv"/>
-                <constraint firstItem="GLk-V7-ySF" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="64" id="xZl-8U-fPK"/>
+                <constraint firstItem="GLk-V7-ySF" firstAttribute="top" secondItem="4ME-BE-6rP" secondAttribute="bottom" constant="9" id="uqm-Yu-ksj"/>
             </constraints>
             <point key="canvasLocation" x="137.68115942028987" y="96.428571428571431"/>
         </view>

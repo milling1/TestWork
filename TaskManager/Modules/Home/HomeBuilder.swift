@@ -8,15 +8,14 @@
 import Foundation
 
 protocol HomeBuilder {
-    func buildVieController(dataStorage: DataStorage) -> HomeViewController
+    func buildViewController(dataStorage: DataStorage) -> HomeViewController
 }
 
 class HomeBuilderImp: HomeBuilder {
     
-    func buildVieController(dataStorage: DataStorage) -> HomeViewController {
+    func buildViewController(dataStorage: DataStorage) -> HomeViewController {
         let controller = HomeViewController.init(nibName: String(describing: HomeViewController.self), bundle: nil)
         controller.presenter = HomeViewPresenterImp(view: controller, dataStorage: dataStorage)
-        
         return controller
     }
 }
