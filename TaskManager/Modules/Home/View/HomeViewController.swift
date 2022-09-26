@@ -23,7 +23,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, HomeView {
     @IBOutlet weak private var tableView: UITableView!
     @IBOutlet weak private var addButton: UIButton!
     
-    private var dataSource: DataSourceDiffable!
+    private var dataSource: HomeDataSource!
     var presenter: HomeViewPresenter!
     
     override func viewDidLoad() {
@@ -43,7 +43,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, HomeView {
     private func configureTableView() {
         tableView.register(UINib(nibName: String(describing: TaskTableViewCell.self), bundle: nil), forCellReuseIdentifier: TaskTableViewCell.identifier)
         
-        dataSource = DataSourceDiffable(tableView: tableView, cellProvider: { (tableView, indexPath, itemIdentifier) -> UITableViewCell? in
+        dataSource = HomeDataSource(tableView: tableView, cellProvider: { (tableView, indexPath, itemIdentifier) -> UITableViewCell? in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier, for: indexPath) as? TaskTableViewCell else {return UITableViewCell()}
             
             cell.configureCell(viewModel: itemIdentifier)
