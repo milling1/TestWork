@@ -1,0 +1,13 @@
+/* 
+  Localizable.strings
+  TaskManager
+
+  Created by user on 28.09.2022.
+  
+*/
+
+"TaskLabel" = "Task Manager";
+"EditButton" = "Edit";
+"Active" = "Active";
+"Completed" = "Completed";
+
