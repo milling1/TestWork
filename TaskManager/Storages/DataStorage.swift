@@ -24,6 +24,5 @@ class HomeDataStorage: DataStorage {
     func addTask(_ task: ModelTask) {
         tasks.append(task)
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "task was added"), object: nil)
-        print("Printeaza \(tasks)")
     }
 }

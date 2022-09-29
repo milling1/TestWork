@@ -15,7 +15,6 @@ protocol HomeViewPresenter {
 class HomeViewPresenterImp: HomeViewPresenter {
     
     weak var view: HomeView?
-    
     var dataStorage: DataStorage
     
     init(view: HomeView, dataStorage: DataStorage) {

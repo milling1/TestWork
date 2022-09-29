@@ -7,7 +7,7 @@
 
 import UIKit
 
-enum Section: String, CaseIterable {
+enum Section: String {
     case Active
     case Completed
     
@@ -41,26 +41,28 @@ class HomeViewController: UIViewController, UITableViewDelegate, HomeView {
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0.0
         }
+        localizedString()
         configureTableView()
         presenter.viewDidLoad()
         addButton.setTitle("", for: .normal)
-        
-        let taskLabelLocalize = NSLocalizedString("TaskLabel", comment: "")
-        taskLabel.text = taskLabelLocalize
-        
-        let editButtonLocalize = NSLocalizedString("EditButton", comment: "")
-        editButton.setTitle(editButtonLocalize, for: .normal)
     }
     
     @IBAction private func addTaskButton(_ sender: Any) {
         let addVC = AddTaskViewController()
         addVC.delegate = self
-        let addPresenter = AddViewPresenterImp(create: addVC, dataStorage: HomeDataStorage())
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let addPresenter = AddViewPresenterImp(create: addVC, dataStorage: appDelegate.storage!)
         addVC.presenter = addPresenter
         navigationController?.pushViewController(addVC, animated: true)
-        configureTableView()
-        presenter.viewDidLoad()
-        addButton.setTitle("", for: .normal)
+    }
+    
+    private func localizedString() {
+        let taskLabelLocalize = NSLocalizedString("TaskLabel", comment: "")
+        taskLabel.text = taskLabelLocalize
+        
+        let editButtonLocalize = NSLocalizedString("EditButton", comment: "")
+        editButton.setTitle(editButtonLocalize, for: .normal)
     }
     
     private func configureTableView() {
@@ -76,7 +78,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, HomeView {
     }
     
     func showTask(tasks: [ModelTask]) {
-        var snapshot = dataSource.snapshot()
         let sections = [Section.Active, Section.Completed]
         snapshot.appendSections(sections)
 
@@ -86,11 +87,11 @@ class HomeViewController: UIViewController, UITableViewDelegate, HomeView {
             }
             snapshot.appendItems(items, toSection: section)
         }
-        dataSource.apply(snapshot, animatingDifferences: true)
+        dataSource.apply(snapshot, animatingDifferences: false)
     }
     
     func appendItems(task: ModelTask, section: Section) {
         snapshot.appendItems([task], toSection: section)
-        dataSource.apply(snapshot)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
