@@ -58,6 +58,9 @@ class HomeViewController: UIViewController, UITableViewDelegate, HomeView {
         let addPresenter = AddViewPresenterImp(create: addVC, dataStorage: HomeDataStorage())
         addVC.presenter = addPresenter
         navigationController?.pushViewController(addVC, animated: true)
+        configureTableView()
+        presenter.viewDidLoad()
+        addButton.setTitle("", for: .normal)
     }
     
     private func configureTableView() {
@@ -73,6 +76,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, HomeView {
     }
     
     func showTask(tasks: [ModelTask]) {
+        var snapshot = dataSource.snapshot()
         let sections = [Section.Active, Section.Completed]
         snapshot.appendSections(sections)
 
