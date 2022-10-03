@@ -51,10 +51,11 @@ class TaskTableViewCell: UITableViewCell {
         switch section {
         case .Active:
             backgroundColor = .systemBackground
+            circleLabel.backgroundColor = backgroundColor
         case .Completed:
-            backgroundColor = .taskManagerColor
+            backgroundColor = .systemBackground
+            circleLabel.backgroundColor = .taskManagerColor
             changeCompletedTask()
         }
-        circleLabel.backgroundColor = backgroundColor
     }
 }

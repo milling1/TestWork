@@ -17,10 +17,14 @@
 		CE418B1128D1C796000CEADD /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE418B0F28D1C796000CEADD /* HomeViewController.xib */; };
 		CE418B1828D1D7B5000CEADD /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE418B1628D1D7B5000CEADD /* TaskTableViewCell.swift */; };
 		CE418B1928D1D7B5000CEADD /* TaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE418B1728D1D7B5000CEADD /* TaskTableViewCell.xib */; };
+		CE41C02028E5F5D300EDAB3E /* LocalizableString.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE41C01F28E5F5D300EDAB3E /* LocalizableString.swift */; };
 		CE42261E28DC4D5200066B54 /* HomeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE42261D28DC4D5200066B54 /* HomeBuilder.swift */; };
 		CE6192F228D34BF300E3179F /* HomeViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6192F128D34BF300E3179F /* HomeViewPresenter.swift */; };
+		CE7B55B728E5D90D00C17283 /* AddBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7B55B628E5D90D00C17283 /* AddBuilder.swift */; };
 		CE89C97E28E421720046F3AB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE89C98028E421720046F3AB /* Localizable.strings */; };
 		CE89C98628E43ECE0046F3AB /* AddViewPresenterImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE89C98528E43ECE0046F3AB /* AddViewPresenterImp.swift */; };
+		CE8CDB5128E6C48D006D5779 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8CDB5028E6C48D006D5779 /* String.swift */; };
+		CEA1130028E5D4B9001F0D46 /* NSNotification.Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA112FF28E5D4B9001F0D46 /* NSNotification.Name.swift */; };
 		CEB3D58528D9898300CACFBA /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB3D58428D9898300CACFBA /* UIColor+Extension.swift */; };
 		CEB3D58928D994E200CACFBA /* DataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB3D58828D994E200CACFBA /* DataStorage.swift */; };
 		CEE69F7728E1C1A400A768AF /* AddTaskViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEE69F7428E1C1A400A768AF /* AddTaskViewController.xib */; };
@@ -40,11 +44,15 @@
 		CE418B0F28D1C796000CEADD /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		CE418B1628D1D7B5000CEADD /* TaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskTableViewCell.swift; sourceTree = "<group>"; };
 		CE418B1728D1D7B5000CEADD /* TaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskTableViewCell.xib; sourceTree = "<group>"; };
+		CE41C01F28E5F5D300EDAB3E /* LocalizableString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizableString.swift; sourceTree = "<group>"; };
 		CE42261D28DC4D5200066B54 /* HomeBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBuilder.swift; sourceTree = "<group>"; };
 		CE6192F128D34BF300E3179F /* HomeViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewPresenter.swift; sourceTree = "<group>"; };
+		CE7B55B628E5D90D00C17283 /* AddBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBuilder.swift; sourceTree = "<group>"; };
 		CE89C97F28E421720046F3AB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CE89C98128E4226F0046F3AB /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CE89C98528E43ECE0046F3AB /* AddViewPresenterImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewPresenterImp.swift; sourceTree = "<group>"; };
+		CE8CDB5028E6C48D006D5779 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
+		CEA112FF28E5D4B9001F0D46 /* NSNotification.Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSNotification.Name.swift; sourceTree = "<group>"; };
 		CEB3D58428D9898300CACFBA /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		CEB3D58828D994E200CACFBA /* DataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStorage.swift; sourceTree = "<group>"; };
 		CEE69F7428E1C1A400A768AF /* AddTaskViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddTaskViewController.xib; sourceTree = "<group>"; };
@@ -97,6 +105,7 @@
 			isa = PBXGroup;
 			children = (
 				CE89C98028E421720046F3AB /* Localizable.strings */,
+				CE41C01F28E5F5D300EDAB3E /* LocalizableString.swift */,
 				CE418AF928D1C768000CEADD /* TaskManager */,
 				CE418AF828D1C768000CEADD /* Products */,
 			);
@@ -137,6 +146,8 @@
 			isa = PBXGroup;
 			children = (
 				CEB3D58428D9898300CACFBA /* UIColor+Extension.swift */,
+				CEA112FF28E5D4B9001F0D46 /* NSNotification.Name.swift */,
+				CE8CDB5028E6C48D006D5779 /* String.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -152,20 +163,21 @@
 		CED7F60E28E17F7F00533113 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				CEE69F7328E1C1A400A768AF /* Add Button */,
+				CEE69F7328E1C1A400A768AF /* Add Task */,
 				CE098B7428D44BD700756F06 /* Home */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
 		};
-		CEE69F7328E1C1A400A768AF /* Add Button */ = {
+		CEE69F7328E1C1A400A768AF /* Add Task */ = {
 			isa = PBXGroup;
 			children = (
+				CE7B55B628E5D90D00C17283 /* AddBuilder.swift */,
 				CEE69F7628E1C1A400A768AF /* View */,
 				CEE69F7928E1C54700A768AF /* Presenter */,
 			);
-			name = "Add Button";
-			path = "TaskManager/Modules/Add Button";
+			name = "Add Task";
+			path = "TaskManager/Modules/Add Task";
 			sourceTree = SOURCE_ROOT;
 		};
 		CEE69F7628E1C1A400A768AF /* View */ = {
@@ -262,15 +274,19 @@
 			files = (
 				CE418B1828D1D7B5000CEADD /* TaskTableViewCell.swift in Sources */,
 				CE6192F228D34BF300E3179F /* HomeViewPresenter.swift in Sources */,
+				CEA1130028E5D4B9001F0D46 /* NSNotification.Name.swift in Sources */,
 				CE3BE43228D3173B002FE686 /* HomeDataSource.swift in Sources */,
 				CE42261E28DC4D5200066B54 /* HomeBuilder.swift in Sources */,
 				CE418B1028D1C796000CEADD /* HomeViewController.swift in Sources */,
 				CEB3D58928D994E200CACFBA /* DataStorage.swift in Sources */,
+				CE7B55B728E5D90D00C17283 /* AddBuilder.swift in Sources */,
 				CEE69F7828E1C1A400A768AF /* AddTaskViewController.swift in Sources */,
 				CE3BE43028D2FA2D002FE686 /* ModelTask.swift in Sources */,
 				CE418AFB28D1C768000CEADD /* AppDelegate.swift in Sources */,
 				CE418AFD28D1C768000CEADD /* SceneDelegate.swift in Sources */,
 				CE89C98628E43ECE0046F3AB /* AddViewPresenterImp.swift in Sources */,
+				CE41C02028E5F5D300EDAB3E /* LocalizableString.swift in Sources */,
+				CE8CDB5128E6C48D006D5779 /* String.swift in Sources */,
 				CEB3D58528D9898300CACFBA /* UIColor+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

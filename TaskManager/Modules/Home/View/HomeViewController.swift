@@ -11,12 +11,13 @@ enum Section: String {
     case Active
     case Completed
     
-    func localizedString() -> String {
-        return NSLocalizedString(self.rawValue, comment: "")
-    }
-    
-    static func getTitleFor(title: Section) -> String {
-        return title.localizedString()
+    func localizedEnum() -> String {
+        switch self {
+        case .Active:
+            return LocalizableString.Home.activeSection.localized
+        case .Completed:
+            return LocalizableString.Home.completedSection.localized
+        }
     }
 }
 
@@ -25,7 +26,7 @@ protocol HomeView: AnyObject {
     func appendItems(task: ModelTask, section: Section)
 }
 
-class HomeViewController: UIViewController, UITableViewDelegate, HomeView {
+class HomeViewController: UIViewController, HomeView {
     
     @IBOutlet weak private var editButton: UIButton!
     @IBOutlet weak private var taskLabel: UILabel!
@@ -48,25 +49,23 @@ class HomeViewController: UIViewController, UITableViewDelegate, HomeView {
     }
     
     @IBAction private func addTaskButton(_ sender: Any) {
-        let addVC = AddTaskViewController()
-        addVC.delegate = self
-        
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let addPresenter = AddViewPresenterImp(create: addVC, dataStorage: appDelegate.storage!)
-        addVC.presenter = addPresenter
-        navigationController?.pushViewController(addVC, animated: true)
+        let addPresenter = AddBuilderImp().buildViewController(dataStorage: appDelegate.storage!)
+        navigationController?.pushViewController(addPresenter, animated: true)
     }
     
+    @IBAction func editActionButton(_ sender: Any) {
+        tableView.setEditing(!tableView.isEditing, animated: true)
+    }
+
     private func localizedString() {
-        let taskLabelLocalize = NSLocalizedString("TaskLabel", comment: "")
-        taskLabel.text = taskLabelLocalize
-        
-        let editButtonLocalize = NSLocalizedString("EditButton", comment: "")
-        editButton.setTitle(editButtonLocalize, for: .normal)
+        taskLabel.text = LocalizableString.Home.taskLabel.localized
+        editButton.setTitle(LocalizableString.Home.editButton.localized, for: .normal)
     }
     
     private func configureTableView() {
         tableView.register(UINib(nibName: String(describing: TaskTableViewCell.self), bundle: nil), forCellReuseIdentifier: TaskTableViewCell.identifier)
+        tableView.delegate = self
         
         dataSource = HomeDataSource(tableView: tableView, cellProvider: { (tableView, indexPath, itemIdentifier) -> UITableViewCell? in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier, for: indexPath) as? TaskTableViewCell else {return UITableViewCell()}
@@ -93,5 +92,44 @@ class HomeViewController: UIViewController, UITableViewDelegate, HomeView {
     func appendItems(task: ModelTask, section: Section) {
         snapshot.appendItems([task], toSection: section)
         dataSource.apply(snapshot, animatingDifferences: true)
+    }
+}
+
+extension HomeViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard let item = self.dataSource.itemIdentifier(for: indexPath) else {
+            return UISwipeActionsConfiguration()
+        }
+        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, sourceView, completionHandler) in
+            
+            var snapshot = self.dataSource.snapshot()
+            snapshot.deleteItems([item])
+            self.dataSource.apply(snapshot, animatingDifferences: true)
+
+            completionHandler(true)
+        }
+        let editAction = UIContextualAction(style: .normal, title: "Edit") { _,_,_  in
+            print("Edit")
+        }
+        deleteAction.backgroundColor = .taskManagerColor
+        deleteAction.image = UIImage(systemName: "trash")
+        
+        editAction.backgroundColor = .systemYellow
+        editAction.image = UIImage(systemName: "pencil")
+        
+        let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
+        return swipeConfiguration
+    }
+    
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let completedAction = UIContextualAction(style: .normal, title: "Complete") { _, _, _ in
+            print("Completed")
+        }
+        completedAction.backgroundColor = .systemGreen
+        completedAction.image = UIImage(systemName: "checkmark")
+        
+        let swipeConfiguration = UISwipeActionsConfiguration(actions: [completedAction])
+        return swipeConfiguration
     }
 }

@@ -9,7 +9,6 @@ import Foundation
 
 protocol HomeViewPresenter {
     func viewDidLoad()
-    var dataStorage: DataStorage { get }
 }
 
 class HomeViewPresenterImp: HomeViewPresenter {
@@ -24,7 +23,7 @@ class HomeViewPresenterImp: HomeViewPresenter {
     
     func viewDidLoad() {
         view?.showTask(tasks: dataStorage.tasks)
-        NotificationCenter.default.addObserver(self, selector: #selector(notificationRecieved), name: NSNotification.Name(rawValue: "task was added"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(notificationRecieved), name: NSNotification.Name.taskWasAdded , object: nil)
     }
     
     @objc func notificationRecieved() {
