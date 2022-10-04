@@ -23,10 +23,10 @@
 		CE7B55B728E5D90D00C17283 /* AddBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7B55B628E5D90D00C17283 /* AddBuilder.swift */; };
 		CE89C97E28E421720046F3AB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CE89C98028E421720046F3AB /* Localizable.strings */; };
 		CE89C98628E43ECE0046F3AB /* AddViewPresenterImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE89C98528E43ECE0046F3AB /* AddViewPresenterImp.swift */; };
-		CE8CDB5128E6C48D006D5779 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8CDB5028E6C48D006D5779 /* String.swift */; };
-		CEA1130028E5D4B9001F0D46 /* NSNotification.Name.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA112FF28E5D4B9001F0D46 /* NSNotification.Name.swift */; };
+		CE8CDB5128E6C48D006D5779 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8CDB5028E6C48D006D5779 /* String+Extension.swift */; };
+		CEA1130028E5D4B9001F0D46 /* NSNotification.Name+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA112FF28E5D4B9001F0D46 /* NSNotification.Name+Extension.swift */; };
 		CEB3D58528D9898300CACFBA /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB3D58428D9898300CACFBA /* UIColor+Extension.swift */; };
-		CEB3D58928D994E200CACFBA /* DataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB3D58828D994E200CACFBA /* DataStorage.swift */; };
+		CEB3D58928D994E200CACFBA /* HomeDataStorageImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB3D58828D994E200CACFBA /* HomeDataStorageImp.swift */; };
 		CEE69F7728E1C1A400A768AF /* AddTaskViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEE69F7428E1C1A400A768AF /* AddTaskViewController.xib */; };
 		CEE69F7828E1C1A400A768AF /* AddTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE69F7528E1C1A400A768AF /* AddTaskViewController.swift */; };
 /* End PBXBuildFile section */
@@ -51,10 +51,10 @@
 		CE89C97F28E421720046F3AB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CE89C98128E4226F0046F3AB /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		CE89C98528E43ECE0046F3AB /* AddViewPresenterImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewPresenterImp.swift; sourceTree = "<group>"; };
-		CE8CDB5028E6C48D006D5779 /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
-		CEA112FF28E5D4B9001F0D46 /* NSNotification.Name.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSNotification.Name.swift; sourceTree = "<group>"; };
+		CE8CDB5028E6C48D006D5779 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		CEA112FF28E5D4B9001F0D46 /* NSNotification.Name+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification.Name+Extension.swift"; sourceTree = "<group>"; };
 		CEB3D58428D9898300CACFBA /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
-		CEB3D58828D994E200CACFBA /* DataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStorage.swift; sourceTree = "<group>"; };
+		CEB3D58828D994E200CACFBA /* HomeDataStorageImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDataStorageImp.swift; sourceTree = "<group>"; };
 		CEE69F7428E1C1A400A768AF /* AddTaskViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddTaskViewController.xib; sourceTree = "<group>"; };
 		CEE69F7528E1C1A400A768AF /* AddTaskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddTaskViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -101,11 +101,19 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		CE3D99EB28EC064800341FED /* Localizables */ = {
+			isa = PBXGroup;
+			children = (
+				CE41C01F28E5F5D300EDAB3E /* LocalizableString.swift */,
+				CE89C98028E421720046F3AB /* Localizable.strings */,
+			);
+			path = Localizables;
+			sourceTree = "<group>";
+		};
 		CE418AEE28D1C768000CEADD = {
 			isa = PBXGroup;
 			children = (
-				CE89C98028E421720046F3AB /* Localizable.strings */,
-				CE41C01F28E5F5D300EDAB3E /* LocalizableString.swift */,
+				CE3D99EB28EC064800341FED /* Localizables */,
 				CE418AF928D1C768000CEADD /* TaskManager */,
 				CE418AF828D1C768000CEADD /* Products */,
 			);
@@ -146,8 +154,8 @@
 			isa = PBXGroup;
 			children = (
 				CEB3D58428D9898300CACFBA /* UIColor+Extension.swift */,
-				CEA112FF28E5D4B9001F0D46 /* NSNotification.Name.swift */,
-				CE8CDB5028E6C48D006D5779 /* String.swift */,
+				CEA112FF28E5D4B9001F0D46 /* NSNotification.Name+Extension.swift */,
+				CE8CDB5028E6C48D006D5779 /* String+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -155,7 +163,7 @@
 		CEB3D58728D994B900CACFBA /* Storages */ = {
 			isa = PBXGroup;
 			children = (
-				CEB3D58828D994E200CACFBA /* DataStorage.swift */,
+				CEB3D58828D994E200CACFBA /* HomeDataStorageImp.swift */,
 			);
 			path = Storages;
 			sourceTree = "<group>";
@@ -274,11 +282,11 @@
 			files = (
 				CE418B1828D1D7B5000CEADD /* TaskTableViewCell.swift in Sources */,
 				CE6192F228D34BF300E3179F /* HomeViewPresenter.swift in Sources */,
-				CEA1130028E5D4B9001F0D46 /* NSNotification.Name.swift in Sources */,
+				CEA1130028E5D4B9001F0D46 /* NSNotification.Name+Extension.swift in Sources */,
 				CE3BE43228D3173B002FE686 /* HomeDataSource.swift in Sources */,
 				CE42261E28DC4D5200066B54 /* HomeBuilder.swift in Sources */,
 				CE418B1028D1C796000CEADD /* HomeViewController.swift in Sources */,
-				CEB3D58928D994E200CACFBA /* DataStorage.swift in Sources */,
+				CEB3D58928D994E200CACFBA /* HomeDataStorageImp.swift in Sources */,
 				CE7B55B728E5D90D00C17283 /* AddBuilder.swift in Sources */,
 				CEE69F7828E1C1A400A768AF /* AddTaskViewController.swift in Sources */,
 				CE3BE43028D2FA2D002FE686 /* ModelTask.swift in Sources */,
@@ -286,7 +294,7 @@
 				CE418AFD28D1C768000CEADD /* SceneDelegate.swift in Sources */,
 				CE89C98628E43ECE0046F3AB /* AddViewPresenterImp.swift in Sources */,
 				CE41C02028E5F5D300EDAB3E /* LocalizableString.swift in Sources */,
-				CE8CDB5128E6C48D006D5779 /* String.swift in Sources */,
+				CE8CDB5128E6C48D006D5779 /* String+Extension.swift in Sources */,
 				CEB3D58528D9898300CACFBA /* UIColor+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

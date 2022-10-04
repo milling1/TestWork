@@ -9,14 +9,15 @@ import Foundation
 
 protocol HomeViewPresenter {
     func viewDidLoad()
+    var dataStorage:HomeDataStorage { get }
 }
 
 class HomeViewPresenterImp: HomeViewPresenter {
     
     weak var view: HomeView?
-    var dataStorage: DataStorage
+    var dataStorage: HomeDataStorage
     
-    init(view: HomeView, dataStorage: DataStorage) {
+    init(view: HomeView, dataStorage: HomeDataStorage) {
         self.view = view
         self.dataStorage = dataStorage
     }

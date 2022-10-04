@@ -8,20 +8,20 @@
 import Foundation
 
 protocol AddViewPresenter {
-    func createTaskMVP(title: String, description: String?)
+    func createTask(title: String, description: String?)
 }
 
 class AddViewPresenterImp: AddViewPresenter {
     
     weak private var view: AddTaskView?
-    private var dataStorage: DataStorage
+    private var dataStorage: HomeDataStorage
     
-    init(view: AddTaskView, dataStorage: DataStorage) {
+    init(view: AddTaskView, dataStorage: HomeDataStorage) {
         self.view = view
         self.dataStorage = dataStorage
     }
     
-    func createTaskMVP(title: String, description: String?) {
+    func createTask(title: String, description: String?) {
         let task = ModelTask(title: title, description: description, type: .Active)
         dataStorage.addTask(task)
     }

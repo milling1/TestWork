@@ -8,12 +8,12 @@
 import Foundation
 
 protocol AddBuilder {
-    func buildViewController(dataStorage: DataStorage) -> AddTaskViewController
+    func buildViewController(dataStorage: HomeDataStorage) -> AddTaskViewController
 }
 
 class AddBuilderImp: AddBuilder {
     
-    func buildViewController(dataStorage: DataStorage) -> AddTaskViewController {
+    func buildViewController(dataStorage: HomeDataStorage) -> AddTaskViewController {
         let controller = AddTaskViewController.init(nibName: String(describing: AddTaskViewController.self), bundle: nil)
         controller.presenter = AddViewPresenterImp(view: controller, dataStorage: dataStorage)
         return controller

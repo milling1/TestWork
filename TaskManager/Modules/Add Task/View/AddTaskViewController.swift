@@ -14,7 +14,7 @@ protocol AddTaskView: AnyObject {
 class AddTaskViewController: UIViewController, AddTaskView {
     
     struct Constants {
-        static let textFieldCornerRadius = 8
+        static let textFieldCornerRadius: CGFloat = 8.00
         static let clipsToBounds = true
     }
     
@@ -22,7 +22,7 @@ class AddTaskViewController: UIViewController, AddTaskView {
     @IBOutlet weak private var titleTextField: UITextField!
     @IBOutlet weak private var subtitleTextField: UITextField!
     @IBOutlet weak private var createTaskButton: UIButton!
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak private var scrollView: UIScrollView!
     
     var presenter: AddViewPresenter!
     
@@ -41,11 +41,11 @@ class AddTaskViewController: UIViewController, AddTaskView {
     
     private func setTextField() {
         titleTextField.delegate = self
-        titleTextField.layer.cornerRadius = CGFloat(Constants.textFieldCornerRadius)
+        titleTextField.layer.cornerRadius = Constants.textFieldCornerRadius
         titleTextField.clipsToBounds = Constants.clipsToBounds
         
         subtitleTextField.delegate = self
-        subtitleTextField.layer.cornerRadius = CGFloat(Constants.textFieldCornerRadius)
+        subtitleTextField.layer.cornerRadius = Constants.textFieldCornerRadius
         subtitleTextField.clipsToBounds = Constants.clipsToBounds
     }
     
@@ -83,7 +83,7 @@ class AddTaskViewController: UIViewController, AddTaskView {
     }
     
     @IBAction func createTask(_ sender: Any) {
-        presenter.createTaskMVP(title: titleTextField.text ?? "", description: subtitleTextField.text)
+        presenter.createTask(title: titleTextField.text ?? "", description: subtitleTextField.text)
         navigationController?.popViewController(animated: true)
     }
 }
@@ -97,10 +97,6 @@ extension AddTaskViewController: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if titleTextField.hasText {
-            createTaskButton.isHidden = false
-        }else {
-            createTaskButton.isHidden = true
-        }
+        createTaskButton.isHidden = !titleTextField.hasText
     }
 }

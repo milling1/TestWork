@@ -14,9 +14,9 @@ enum Section: String {
     func localizedEnum() -> String {
         switch self {
         case .Active:
-            return LocalizableString.Home.activeSection.localized
+            return LocalizableString.Home.activeSection
         case .Completed:
-            return LocalizableString.Home.completedSection.localized
+            return LocalizableString.Home.completedSection
         }
     }
 }
@@ -49,8 +49,8 @@ class HomeViewController: UIViewController, HomeView {
     }
     
     @IBAction private func addTaskButton(_ sender: Any) {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let addPresenter = AddBuilderImp().buildViewController(dataStorage: appDelegate.storage!)
+        let presenter = presenter.dataStorage
+        let addPresenter = AddBuilderImp().buildViewController(dataStorage: presenter)
         navigationController?.pushViewController(addPresenter, animated: true)
     }
     
@@ -59,8 +59,8 @@ class HomeViewController: UIViewController, HomeView {
     }
 
     private func localizedString() {
-        taskLabel.text = LocalizableString.Home.taskLabel.localized
-        editButton.setTitle(LocalizableString.Home.editButton.localized, for: .normal)
+        taskLabel.text = LocalizableString.Home.taskLabel      
+        editButton.setTitle(LocalizableString.Home.editButton, for: .normal)
     }
     
     private func configureTableView() {
@@ -110,8 +110,8 @@ extension HomeViewController: UITableViewDelegate {
             completionHandler(true)
         }
         let editAction = UIContextualAction(style: .normal, title: "Edit") { _,_,_  in
-            print("Edit")
         }
+        
         deleteAction.backgroundColor = .taskManagerColor
         deleteAction.image = UIImage(systemName: "trash")
         
@@ -124,7 +124,6 @@ extension HomeViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let completedAction = UIContextualAction(style: .normal, title: "Complete") { _, _, _ in
-            print("Completed")
         }
         completedAction.backgroundColor = .systemGreen
         completedAction.image = UIImage(systemName: "checkmark")
