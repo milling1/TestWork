@@ -11,7 +11,7 @@ import UIKit
 class HomeDataSource: UITableViewDiffableDataSource<Section, ModelTask> {
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        snapshot().sectionIdentifiers[section].rawValue
+        return snapshot().sectionIdentifiers[section].localizedEnum()
     }
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
@@ -19,5 +19,9 @@ class HomeDataSource: UITableViewDiffableDataSource<Section, ModelTask> {
         myLabel.font = UIFont.boldSystemFont(ofSize: 24)
         myLabel.textColor = .none
         return myLabel.text
+    }
+    
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
     }
 }

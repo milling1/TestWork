@@ -12,7 +12,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="TaskManager" customModuleProvider="target">
             <connections>
                 <outlet property="addButton" destination="hd2-ga-8wX" id="9NH-ck-LPp"/>
-                <outlet property="editButton" destination="4ME-BE-6rP" id="690-ak-IHu"/>
+                <outlet property="editButton" destination="pbr-n1-Dpj" id="72p-LF-TVE"/>
                 <outlet property="tableView" destination="1Dy-F4-RDc" id="P3A-ks-8l3"/>
                 <outlet property="taskLabel" destination="GLk-V7-ySF" id="yjt-29-5Dy"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -24,18 +24,11 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" allowsSelection="NO" rowHeight="51" estimatedRowHeight="-1" sectionHeaderHeight="50" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="1Dy-F4-RDc">
-                    <rect key="frame" x="16" y="178" width="398" height="568"/>
+                    <rect key="frame" x="16" y="196" width="398" height="550"/>
                     <color key="separatorColor" systemColor="labelColor"/>
                     <color key="sectionIndexColor" systemColor="labelColor"/>
                     <color key="sectionIndexBackgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ME-BE-6rP">
-                    <rect key="frame" x="310" y="50" width="72" height="31"/>
-                    <state key="normal" title="Button"/>
-                    <buttonConfiguration key="configuration" style="plain" image="list.bullet" catalog="system" title="Edit">
-                        <color key="baseForegroundColor" red="0.83137254901960778" green="0.30980392156862746" blue="0.30980392156862746" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                    </buttonConfiguration>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hd2-ga-8wX">
                     <rect key="frame" x="332" y="796" width="50" height="68"/>
                     <state key="normal" title="Button"/>
@@ -48,7 +41,7 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Manager" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GLk-V7-ySF">
-                    <rect key="frame" x="24" y="90" width="257" height="48"/>
+                    <rect key="frame" x="24" y="108" width="257" height="48"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="48" id="GrW-Kd-uXN"/>
                     </constraints>
@@ -56,23 +49,33 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pbr-n1-Dpj">
+                    <rect key="frame" x="306" y="49" width="72" height="31"/>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="plain" image="list.bullet" catalog="system" title="Edit">
+                        <color key="baseForegroundColor" red="0.83137254900000002" green="0.30980392159999998" blue="0.30980392159999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </buttonConfiguration>
+                    <connections>
+                        <action selector="editActionButton:" destination="-1" eventType="touchUpInside" id="wSe-vx-r95"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="hd2-ga-8wX" firstAttribute="top" secondItem="1Dy-F4-RDc" secondAttribute="bottom" constant="50" id="0CV-NU-InS"/>
                 <constraint firstItem="1Dy-F4-RDc" firstAttribute="top" secondItem="GLk-V7-ySF" secondAttribute="bottom" constant="40" id="3wO-5p-fjk"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="4ME-BE-6rP" secondAttribute="trailing" constant="32" id="8Em-CQ-jlV"/>
                 <constraint firstItem="hd2-ga-8wX" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="332" id="8Vg-1i-tQV"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="pbr-n1-Dpj" secondAttribute="trailing" constant="36" id="Cw1-7j-OI3"/>
                 <constraint firstItem="1Dy-F4-RDc" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="G1u-Kt-duv"/>
                 <constraint firstItem="GLk-V7-ySF" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="24" id="O4h-g6-kCf"/>
+                <constraint firstItem="pbr-n1-Dpj" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="5" id="PKb-mM-WXX"/>
                 <constraint firstAttribute="bottom" secondItem="hd2-ga-8wX" secondAttribute="bottom" constant="32" id="PsS-nO-D32"/>
                 <constraint firstAttribute="trailing" secondItem="hd2-ga-8wX" secondAttribute="trailing" constant="32" id="WsK-XT-5Se"/>
-                <constraint firstItem="4ME-BE-6rP" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="50" id="X0M-pA-7Bd"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="1Dy-F4-RDc" secondAttribute="trailing" id="c9o-nY-JId"/>
-                <constraint firstItem="GLk-V7-ySF" firstAttribute="top" secondItem="4ME-BE-6rP" secondAttribute="bottom" constant="9" id="uqm-Yu-ksj"/>
+                <constraint firstItem="GLk-V7-ySF" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="64" id="sIS-pM-VVm"/>
             </constraints>
-            <point key="canvasLocation" x="137.68115942028987" y="96.428571428571431"/>
+            <point key="canvasLocation" x="-106" y="96"/>
         </view>
     </objects>
     <resources>
