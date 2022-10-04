@@ -42,7 +42,7 @@ class HomeViewController: UIViewController, HomeView {
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0.0
         }
-        localizedString()
+        configUI()
         configureTableView()
         presenter.viewDidLoad()
         addButton.setTitle("", for: .normal)
@@ -58,7 +58,7 @@ class HomeViewController: UIViewController, HomeView {
         tableView.setEditing(!tableView.isEditing, animated: true)
     }
 
-    private func localizedString() {
+    private func configUI() {
         taskLabel.text = LocalizableString.Home.taskLabel      
         editButton.setTitle(LocalizableString.Home.editButton, for: .normal)
     }

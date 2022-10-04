@@ -49,24 +49,23 @@ class AddTaskViewController: UIViewController, AddTaskView {
     
     override func viewWillAppear(_ animated: Bool) {
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(willShowKeybord(_:)),
+                                               selector: #selector(willShowKeyboard(_:)),
                                                name: UIResponder.keyboardWillShowNotification,
                                                object: nil)
         
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(willShowKeybord(_:)),
+                                               selector: #selector(willShowKeyboard(_:)),
                                                name: UIResponder.keyboardWillHideNotification,
                                                object: nil)
     }
     
-    @objc func willShowKeybord(_ notification: Notification) {
+    @objc func willShowKeyboard(_ notification: Notification) {
         guard let info = notification.userInfo as NSDictionary?,
-              let keyybordSize = info.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as? NSValue else
-              {return}
+              let keyboardSize = info.value(forKey: UIResponder.keyboardFrameEndUserInfoKey) as? NSValue else { return }
         
-        let keybordHeight = keyybordSize.cgRectValue.size.height
+        let keyboardHeight = keyboardSize.cgRectValue.size.height
         
-        scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keybordHeight, right: 0)
+        scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keyboardHeight, right: 0)
     }
     
     @objc func hideKeyboard() {
