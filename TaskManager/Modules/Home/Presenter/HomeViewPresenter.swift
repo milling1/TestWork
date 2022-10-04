@@ -9,7 +9,7 @@ import Foundation
 
 protocol HomeViewPresenter {
     func viewDidLoad()
-    var dataStorage:HomeDataStorage { get }
+    var dataStorage: HomeDataStorage { get }
 }
 
 class HomeViewPresenterImp: HomeViewPresenter {

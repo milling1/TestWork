@@ -8,7 +8,6 @@
 import UIKit
 
 protocol AddTaskView: AnyObject {
-    func titleAndDescription(title: String, description: String?)
 }
 
 class AddTaskViewController: UIViewController, AddTaskView {
@@ -30,13 +29,8 @@ class AddTaskViewController: UIViewController, AddTaskView {
         super.viewDidLoad()
         setBarItem()
         setTextField()
-        let tapGR = UITapGestureRecognizer(target: self, action: #selector(hideScreen))
+        let tapGR = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(tapGR)
-    }
-    
-    func titleAndDescription(title: String, description: String?) {
-        titleTextField.text = title
-        subtitleTextField.text = description
     }
     
     private func setTextField() {
@@ -60,7 +54,7 @@ class AddTaskViewController: UIViewController, AddTaskView {
                                                object: nil)
         
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(willHideKeybord(_:)),
+                                               selector: #selector(willShowKeybord(_:)),
                                                name: UIResponder.keyboardWillHideNotification,
                                                object: nil)
     }
@@ -75,10 +69,7 @@ class AddTaskViewController: UIViewController, AddTaskView {
         scrollView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: keybordHeight, right: 0)
     }
     
-    @objc func willHideKeybord(_ notification: Notification) {
-    }
-    
-    @objc func hideScreen() {
+    @objc func hideKeyboard() {
         view.endEditing(true)
     }
     
@@ -96,7 +87,7 @@ extension AddTaskViewController: UITextFieldDelegate {
         return true
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
         createTaskButton.isHidden = !titleTextField.hasText
     }
 }

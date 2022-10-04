@@ -113,7 +113,6 @@
 		CE418AEE28D1C768000CEADD = {
 			isa = PBXGroup;
 			children = (
-				CE3D99EB28EC064800341FED /* Localizables */,
 				CE418AF928D1C768000CEADD /* TaskManager */,
 				CE418AF828D1C768000CEADD /* Products */,
 			);
@@ -130,6 +129,7 @@
 		CE418AF928D1C768000CEADD /* TaskManager */ = {
 			isa = PBXGroup;
 			children = (
+				CE3D99EB28EC064800341FED /* Localizables */,
 				CED7F60E28E17F7F00533113 /* Modules */,
 				CEB3D58328D9894C00CACFBA /* Extensions */,
 				CEB3D58728D994B900CACFBA /* Storages */,
