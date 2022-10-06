@@ -10,6 +10,15 @@ import UIKit
 
 class HomeDataSource: UITableViewDiffableDataSource<Section, ModelTask> {
     
+    private var dataStorage: HomeDataStorageImp
+
+    init(dataStorage: HomeDataStorageImp,
+         tableView: UITableView,
+         cellProvider: @escaping UITableViewDiffableDataSource<String, ModelTask>.CellProvider) {
+        self.dataStorage = dataStorage
+        super.init(tableView: tableView, cellProvider: cellProvider)
+    }
+    
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return snapshot().sectionIdentifiers[section].localizedEnum()
     }
@@ -22,6 +31,10 @@ class HomeDataSource: UITableViewDiffableDataSource<Section, ModelTask> {
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
     }
 }

@@ -8,7 +8,7 @@
 import Foundation
 
 protocol AddViewPresenter {
-    func createTask(title: String, description: String?)
+    func createTask(title: String, subtitle: String?, type: Bool, uuid: UUID?)
 }
 
 class AddViewPresenterImp: AddViewPresenter {
@@ -16,13 +16,12 @@ class AddViewPresenterImp: AddViewPresenter {
     weak private var view: AddTaskView?
     private var dataStorage: HomeDataStorage
     
-    init(view: AddTaskView, dataStorage: HomeDataStorage) {
+    init(view: AddTaskView, dataStorage: HomeDataStorageImp) {
         self.view = view
         self.dataStorage = dataStorage
     }
     
-    func createTask(title: String, description: String?) {
-        let task = ModelTask(title: title, description: description, type: .Active)
-        dataStorage.addTask(task)
+    func createTask(title: String, subtitle: String?, type: Bool, uuid: UUID?) {
+        dataStorage.createTask(title: title, subtitle: subtitle, type: type, uuid: uuid)
     }
 }

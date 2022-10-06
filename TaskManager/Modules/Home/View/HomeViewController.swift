@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import CoreData
 
-enum Section: String {
+enum Section: String, CaseIterable {
     case Active
     case Completed
     
@@ -23,7 +24,7 @@ enum Section: String {
 
 protocol HomeView: AnyObject {
     func showTask(tasks: [ModelTask])
-    func appendItems(task: ModelTask, section: Section)
+    var fetchedResultsController: NSFetchedResultsController<ModelTask>! { get set }
 }
 
 class HomeViewController: UIViewController, HomeView {
@@ -33,10 +34,12 @@ class HomeViewController: UIViewController, HomeView {
     @IBOutlet weak private var tableView: UITableView!
     @IBOutlet weak private var addButton: UIButton!
     
+    var fetchedResultsController: NSFetchedResultsController<ModelTask>!
     private var dataSource: HomeDataSource!
     private var snapshot: NSDiffableDataSourceSnapshot<Section, ModelTask>!
+    private var dataStorage = HomeDataStorageImp()
     var presenter: HomeViewPresenter!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         if #available(iOS 15.0, *) {
@@ -44,13 +47,14 @@ class HomeViewController: UIViewController, HomeView {
         }
         configUI()
         configureTableView()
+        configFetchController()
         presenter.viewDidLoad()
         addButton.setTitle("", for: .normal)
     }
-    
+   
     @IBAction private func addTaskButton(_ sender: Any) {
         let presenter = presenter.dataStorage
-        let addPresenter = AddBuilderImp().buildViewController(dataStorage: presenter)
+        let addPresenter = AddBuilderImp().buildViewController(dataStorage: presenter as! HomeDataStorageImp)
         navigationController?.pushViewController(addPresenter, animated: true)
     }
     
@@ -67,30 +71,42 @@ class HomeViewController: UIViewController, HomeView {
         tableView.register(UINib(nibName: String(describing: TaskTableViewCell.self), bundle: nil), forCellReuseIdentifier: TaskTableViewCell.identifier)
         tableView.delegate = self
         
-        dataSource = HomeDataSource(tableView: tableView, cellProvider: { (tableView, indexPath, itemIdentifier) -> UITableViewCell? in
+        dataSource = HomeDataSource(dataStorage: dataStorage, tableView: tableView, cellProvider: { (tableView, indexPath, itemIdentifier) -> UITableViewCell? in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier, for: indexPath) as? TaskTableViewCell else {return UITableViewCell()}
-            
-            cell.configureCell(viewModel: itemIdentifier)
+            switch indexPath.section {
+            case 0:
+                cell.configureCell(viewModel: itemIdentifier, backgroundColor: .systemBackground)
+                cell.circleLabel.backgroundColor = .systemBackground
+            case 1:
+                cell.configureCell(viewModel: itemIdentifier, backgroundColor: .taskManagerColor)
+                cell.changeCompletedTask()
+            default:
+                break
+            }
             return cell
         })
         snapshot = dataSource.snapshot()
     }
     
-    func showTask(tasks: [ModelTask]) {
-        let sections = [Section.Active, Section.Completed]
-        snapshot.appendSections(sections)
-
-        for section in sections {
-            let items = tasks.filter { task in
-                task.type == section
-            }
-            snapshot.appendItems(items, toSection: section)
+    private func configFetchController() {
+        fetchedResultsController = dataStorage.getFetchedResultsController()
+        fetchedResultsController.delegate = self
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            print("Fetch failed")
         }
-        dataSource.apply(snapshot, animatingDifferences: false)
     }
     
-    func appendItems(task: ModelTask, section: Section) {
-        snapshot.appendItems([task], toSection: section)
+    func showTask(tasks: [ModelTask]) {
+        snapshot.appendSections([Section.Active, Section.Completed])
+        for task in tasks {
+            if task.type == true {
+                snapshot.appendItems([task], toSection: Section.Active)
+            } else {
+                snapshot.appendItems([task], toSection: Section.Completed)
+            }
+        }
         dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
@@ -106,6 +122,7 @@ extension HomeViewController: UITableViewDelegate {
             var snapshot = self.dataSource.snapshot()
             snapshot.deleteItems([item])
             self.dataSource.apply(snapshot, animatingDifferences: true)
+            self.dataStorage.deleteTask(item)
 
             completionHandler(true)
         }
@@ -123,12 +140,48 @@ extension HomeViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let completedAction = UIContextualAction(style: .normal, title: "Complete") { _, _, _ in
+        guard let item = self.dataSource.itemIdentifier(for: indexPath) else {
+            return UISwipeActionsConfiguration()
         }
+            
+        let completedAction = UIContextualAction(style: .normal, title: "Complete") { _, _, completitionHandler in
+            var snapshot = self.dataSource.snapshot()
+            snapshot.deleteItems([item])
+            snapshot.appendItems([item], toSection: .Completed)
+            self.dataSource.apply(snapshot, animatingDifferences: false)
+            self.dataStorage.updateTask(item, title: item.title ?? "", subtitle: item.subtitle, type: false, uuid: UUID())
+        }
+        
         completedAction.backgroundColor = .systemGreen
         completedAction.image = UIImage(systemName: "checkmark")
         
         let swipeConfiguration = UISwipeActionsConfiguration(actions: [completedAction])
         return swipeConfiguration
+    }
+}
+
+extension HomeViewController: NSFetchedResultsControllerDelegate {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+                    didChange anObject: Any,
+                    at indexPath: IndexPath?,
+                    for type: NSFetchedResultsChangeType,
+                    newIndexPath: IndexPath?) {
+        guard let task = anObject as? ModelTask else { return }
+        var snapshot = dataSource.snapshot()
+        switch type {
+            case .delete:
+                snapshot.deleteItems([task])
+                dataSource.apply(snapshot, animatingDifferences: true)
+            case .insert:
+            snapshot.appendItems([task], toSection: .Active)
+                dataSource.apply(snapshot, animatingDifferences: true)
+            case .move:
+                break
+            case .update:
+                snapshot.reloadItems([task])
+                dataSource.apply(snapshot, animatingDifferences: true)
+            @unknown default:
+                break
+        }
     }
 }
