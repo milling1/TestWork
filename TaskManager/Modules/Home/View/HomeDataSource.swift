@@ -9,13 +9,9 @@ import Foundation
 import UIKit
 
 class HomeDataSource: UITableViewDiffableDataSource<Section, ModelTask> {
-    
-    private var dataStorage: HomeDataStorageImp
 
-    init(dataStorage: HomeDataStorageImp,
-         tableView: UITableView,
+    override init(tableView: UITableView,
          cellProvider: @escaping UITableViewDiffableDataSource<String, ModelTask>.CellProvider) {
-        self.dataStorage = dataStorage
         super.init(tableView: tableView, cellProvider: cellProvider)
     }
     

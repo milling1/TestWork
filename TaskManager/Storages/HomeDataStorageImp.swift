@@ -11,10 +11,10 @@ import CoreData
 protocol HomeDataStorage {
     func getFetchedResultsController() -> NSFetchedResultsController<ModelTask>
     @discardableResult
-    func createTask(title: String, subtitle: String?, type: Bool, uuid: UUID?) -> ModelTask?
+    func createTask(title: String, subtitle: String?, isActive: Bool, uuid: UUID?) -> ModelTask?
     func deleteTask(_ task: ModelTask)
     func getTaskById(_ id: NSManagedObjectID) -> ModelTask?
-    func updateTask(_ task: ModelTask, title: String, subtitle: String?, type: Bool, uuid: UUID)
+    func updateTask(_ task: ModelTask, title: String, subtitle: String?, isActive: Bool, uuid: UUID)
     func fetchTasks() -> [ModelTask]
     func save()
     func rollback()
@@ -40,11 +40,11 @@ class HomeDataStorageImp: HomeDataStorage {
     }
 
     @discardableResult
-    func createTask(title: String, subtitle: String?, type: Bool, uuid: UUID?) -> ModelTask? {
+    func createTask(title: String, subtitle: String?, isActive: Bool, uuid: UUID?) -> ModelTask? {
         let entity = ModelTask(context: context)
         entity.title = title
         entity.subtitle = subtitle
-        entity.type = type
+        entity.type = isActive
         entity.uuid = uuid
         
         save()
@@ -73,10 +73,10 @@ class HomeDataStorageImp: HomeDataStorage {
         return entities
     }
 
-    func updateTask(_ task: ModelTask, title: String, subtitle: String?, type: Bool, uuid: UUID) {
+    func updateTask(_ task: ModelTask, title: String, subtitle: String?, isActive: Bool, uuid: UUID) {
         task.title = title
         task.subtitle = subtitle
-        task.type = type
+        task.type = isActive
         task.uuid = uuid
         
         save()
@@ -97,7 +97,7 @@ class HomeDataStorageImp: HomeDataStorage {
             do {
                try context.execute(deleteRequest)
             } catch let error as NSError {
-                print("Nu se sterge \(error)")
+                print("Not deleted \(error)")
             }
         }
     }

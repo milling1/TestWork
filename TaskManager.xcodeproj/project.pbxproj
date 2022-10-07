@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		CE38C47028ED5A6F006852D6 /* ModelTask.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CE38C46E28ED5A6F006852D6 /* ModelTask.xcdatamodeld */; };
 		CE38C47528ED5DC2006852D6 /* StorageProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE38C47428ED5DC2006852D6 /* StorageProvider.swift */; };
-		CE3BE43028D2FA2D002FE686 /* ModelTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3BE42F28D2FA2D002FE686 /* ModelTask.swift */; };
 		CE3BE43228D3173B002FE686 /* HomeDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3BE43128D3173B002FE686 /* HomeDataSource.swift */; };
 		CE418AFB28D1C768000CEADD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE418AFA28D1C768000CEADD /* AppDelegate.swift */; };
 		CE418AFD28D1C768000CEADD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE418AFC28D1C768000CEADD /* SceneDelegate.swift */; };
@@ -36,7 +35,6 @@
 /* Begin PBXFileReference section */
 		CE38C46F28ED5A6F006852D6 /* ModelTask.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ModelTask.xcdatamodel; sourceTree = "<group>"; };
 		CE38C47428ED5DC2006852D6 /* StorageProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageProvider.swift; sourceTree = "<group>"; };
-		CE3BE42F28D2FA2D002FE686 /* ModelTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTask.swift; sourceTree = "<group>"; };
 		CE3BE43128D3173B002FE686 /* HomeDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDataSource.swift; sourceTree = "<group>"; };
 		CE418AF728D1C768000CEADD /* TaskManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TaskManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE418AFA28D1C768000CEADD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -78,7 +76,6 @@
 			isa = PBXGroup;
 			children = (
 				CE42261D28DC4D5200066B54 /* HomeBuilder.swift */,
-				CE3BE42E28D2FA16002FE686 /* Model */,
 				CE098B7528D44BF900756F06 /* View */,
 				CE6192EE28D34BA200E3179F /* Presenter */,
 			);
@@ -95,14 +92,6 @@
 				CE418B1728D1D7B5000CEADD /* TaskTableViewCell.xib */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		CE3BE42E28D2FA16002FE686 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				CE3BE42F28D2FA2D002FE686 /* ModelTask.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		CE3D99EB28EC064800341FED /* Localizables */ = {
@@ -296,7 +285,6 @@
 				CEB3D58928D994E200CACFBA /* HomeDataStorageImp.swift in Sources */,
 				CE7B55B728E5D90D00C17283 /* AddBuilder.swift in Sources */,
 				CEE69F7828E1C1A400A768AF /* AddTaskViewController.swift in Sources */,
-				CE3BE43028D2FA2D002FE686 /* ModelTask.swift in Sources */,
 				CE418AFB28D1C768000CEADD /* AppDelegate.swift in Sources */,
 				CE418AFD28D1C768000CEADD /* SceneDelegate.swift in Sources */,
 				CE89C98628E43ECE0046F3AB /* AddViewPresenterImp.swift in Sources */,

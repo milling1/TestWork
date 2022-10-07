@@ -24,7 +24,6 @@ class AddTaskViewController: UIViewController, AddTaskView {
     @IBOutlet weak private var scrollView: UIScrollView!
     
     var presenter: AddViewPresenter!
-    var dataStorage = HomeDataStorageImp()
     var delegate: HomeViewController?
     
     override func viewDidLoad() {
@@ -75,7 +74,7 @@ class AddTaskViewController: UIViewController, AddTaskView {
     }
     
     @IBAction func createTask(_ sender: Any) {
-        presenter.createTask(title: titleTextField.text ?? "", subtitle: subtitleTextField.text, type: true, uuid: UUID())
+        presenter.createTask(title: titleTextField.text ?? "", subtitle: subtitleTextField.text, isActive: true, uuid: UUID())
         navigationController?.popViewController(animated: true)
     }
 }

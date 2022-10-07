@@ -37,7 +37,6 @@ class HomeViewController: UIViewController, HomeView {
     var fetchedResultsController: NSFetchedResultsController<ModelTask>!
     private var dataSource: HomeDataSource!
     private var snapshot: NSDiffableDataSourceSnapshot<Section, ModelTask>!
-    private var dataStorage = HomeDataStorageImp()
     var presenter: HomeViewPresenter!
 
     override func viewDidLoad() {
@@ -71,7 +70,7 @@ class HomeViewController: UIViewController, HomeView {
         tableView.register(UINib(nibName: String(describing: TaskTableViewCell.self), bundle: nil), forCellReuseIdentifier: TaskTableViewCell.identifier)
         tableView.delegate = self
         
-        dataSource = HomeDataSource(dataStorage: dataStorage, tableView: tableView, cellProvider: { (tableView, indexPath, itemIdentifier) -> UITableViewCell? in
+        dataSource = HomeDataSource(tableView: tableView, cellProvider: { (tableView, indexPath, itemIdentifier) -> UITableViewCell? in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier, for: indexPath) as? TaskTableViewCell else {return UITableViewCell()}
             switch indexPath.section {
             case 0:
@@ -89,7 +88,7 @@ class HomeViewController: UIViewController, HomeView {
     }
     
     private func configFetchController() {
-        fetchedResultsController = dataStorage.getFetchedResultsController()
+        fetchedResultsController = presenter.dataStorage.getFetchedResultsController()
         fetchedResultsController.delegate = self
         do {
             try fetchedResultsController.performFetch()
@@ -101,11 +100,7 @@ class HomeViewController: UIViewController, HomeView {
     func showTask(tasks: [ModelTask]) {
         snapshot.appendSections([Section.Active, Section.Completed])
         for task in tasks {
-            if task.type == true {
-                snapshot.appendItems([task], toSection: Section.Active)
-            } else {
-                snapshot.appendItems([task], toSection: Section.Completed)
-            }
+            snapshot.appendItems([task], toSection: task.type ? .Active : .Completed)
         }
         dataSource.apply(snapshot, animatingDifferences: true)
     }
@@ -122,7 +117,7 @@ extension HomeViewController: UITableViewDelegate {
             var snapshot = self.dataSource.snapshot()
             snapshot.deleteItems([item])
             self.dataSource.apply(snapshot, animatingDifferences: true)
-            self.dataStorage.deleteTask(item)
+            self.presenter.dataStorage.deleteTask(item)
 
             completionHandler(true)
         }
@@ -138,7 +133,6 @@ extension HomeViewController: UITableViewDelegate {
         let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
         return swipeConfiguration
     }
-    
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard let item = self.dataSource.itemIdentifier(for: indexPath) else {
             return UISwipeActionsConfiguration()
@@ -149,9 +143,8 @@ extension HomeViewController: UITableViewDelegate {
             snapshot.deleteItems([item])
             snapshot.appendItems([item], toSection: .Completed)
             self.dataSource.apply(snapshot, animatingDifferences: false)
-            self.dataStorage.updateTask(item, title: item.title ?? "", subtitle: item.subtitle, type: false, uuid: UUID())
+            self.presenter.dataStorage.updateTask(item, title: item.title ?? "", subtitle: item.subtitle, isActive: false, uuid: UUID())
         }
-        
         completedAction.backgroundColor = .systemGreen
         completedAction.image = UIImage(systemName: "checkmark")
         
