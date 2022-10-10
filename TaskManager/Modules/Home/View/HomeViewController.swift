@@ -23,8 +23,8 @@ enum Section: String, CaseIterable {
 }
 
 protocol HomeView: AnyObject {
-    func showTask(tasks: [ModelTask])
-    var fetchedResultsController: NSFetchedResultsController<ModelTask>! { get set }
+    func showTask()
+//    var fetchedResultsController: NSFetchedResultsController<ModelTask>! { get set }
 }
 
 class HomeViewController: UIViewController, HomeView {
@@ -34,7 +34,10 @@ class HomeViewController: UIViewController, HomeView {
     @IBOutlet weak private var tableView: UITableView!
     @IBOutlet weak private var addButton: UIButton!
     
-    var fetchedResultsController: NSFetchedResultsController<ModelTask>!
+    let imageView = UIImageView()
+    
+    var activeFetchedResultsController: NSFetchedResultsController<ModelTask>!
+    var completedFetchedResultsController: NSFetchedResultsController<ModelTask>!
     private var dataSource: HomeDataSource!
     private var snapshot: NSDiffableDataSourceSnapshot<Section, ModelTask>!
     var presenter: HomeViewPresenter!
@@ -44,8 +47,9 @@ class HomeViewController: UIViewController, HomeView {
         if #available(iOS 15.0, *) {
             tableView.sectionHeaderTopPadding = 0.0
         }
-        configUI()
         configureTableView()
+        configUI()
+        
         configFetchController()
         presenter.viewDidLoad()
         addButton.setTitle("", for: .normal)
@@ -88,21 +92,36 @@ class HomeViewController: UIViewController, HomeView {
     }
     
     private func configFetchController() {
-        fetchedResultsController = presenter.dataStorage.getFetchedResultsController()
-        fetchedResultsController.delegate = self
+        activeFetchedResultsController = presenter.dataStorage.getFetchedResultsController(isActive: true)
+        completedFetchedResultsController = presenter.dataStorage.getFetchedResultsController(isActive: false)
+        activeFetchedResultsController.delegate = self
+        completedFetchedResultsController.delegate = self
         do {
-            try fetchedResultsController.performFetch()
+            try activeFetchedResultsController.performFetch()
+            try completedFetchedResultsController.performFetch()
         } catch {
             print("Fetch failed")
         }
     }
     
-    func showTask(tasks: [ModelTask]) {
-        snapshot.appendSections([Section.Active, Section.Completed])
-        for task in tasks {
-            snapshot.appendItems([task], toSection: task.type ? .Active : .Completed)
+    func showTask() {
+        let activeTasks = activeFetchedResultsController.fetchedObjects ?? []
+        if !activeTasks.isEmpty {
+            snapshot.appendSections([Section.Active])
+            snapshot.appendItems(activeTasks, toSection: Section.Active)
+        }
+        let completedTasks = completedFetchedResultsController.fetchedObjects ?? []
+        if !completedTasks.isEmpty {
+            snapshot.appendSections([Section.Completed])
+            snapshot.appendItems(completedTasks, toSection: Section.Completed)
         }
         dataSource.apply(snapshot, animatingDifferences: true)
+        if activeTasks.isEmpty && completedTasks.isEmpty {
+            imageView.frame = view.bounds
+            imageView.contentMode = .scaleAspectFit
+            imageView.image = UIImage(named: "Group 21")
+            view.addSubview(imageView)
+        }
     }
 }
 
@@ -141,6 +160,9 @@ extension HomeViewController: UITableViewDelegate {
         let completedAction = UIContextualAction(style: .normal, title: "Complete") { _, _, completitionHandler in
             var snapshot = self.dataSource.snapshot()
             snapshot.deleteItems([item])
+            if snapshot.sectionIdentifiers.contains(.Completed) == false {
+                snapshot.appendSections([.Completed])
+            }
             snapshot.appendItems([item], toSection: .Completed)
             self.dataSource.apply(snapshot, animatingDifferences: false)
             self.presenter.dataStorage.updateTask(item, title: item.title ?? "", subtitle: item.subtitle, isActive: false, uuid: UUID())
@@ -150,6 +172,14 @@ extension HomeViewController: UITableViewDelegate {
         
         let swipeConfiguration = UISwipeActionsConfiguration(actions: [completedAction])
         return swipeConfiguration
+    }
+    
+    func checkTableViewisEmpty() {
+        if snapshot.itemIdentifiers(inSection: .Active).isEmpty && snapshot.itemIdentifiers(inSection: .Completed).isEmpty {
+            tableView.isHidden = true
+        } else {
+            tableView.isHidden = false
+        }
     }
 }
 
@@ -162,19 +192,27 @@ extension HomeViewController: NSFetchedResultsControllerDelegate {
         guard let task = anObject as? ModelTask else { return }
         var snapshot = dataSource.snapshot()
         switch type {
-            case .delete:
-                snapshot.deleteItems([task])
-                dataSource.apply(snapshot, animatingDifferences: true)
-            case .insert:
+        case .delete:
+            snapshot.deleteItems([task])
+            let section: Section = task.type ? .Active : .Completed
+            if snapshot.itemIdentifiers(inSection: section).isEmpty {
+                snapshot.deleteSections([section])
+            }
+            dataSource.apply(snapshot, animatingDifferences: true)
+        case .insert:
+            if snapshot.sectionIdentifiers.contains(.Active) == false {
+                snapshot.appendSections([Section.Active])
+            }
             snapshot.appendItems([task], toSection: .Active)
-                dataSource.apply(snapshot, animatingDifferences: true)
-            case .move:
-                break
-            case .update:
-                snapshot.reloadItems([task])
-                dataSource.apply(snapshot, animatingDifferences: true)
-            @unknown default:
-                break
+            dataSource.apply(snapshot, animatingDifferences: true)
+        case .move:
+            break
+        case .update:
+            print("print")
+//            snapshot.reloadItems([task])
+//            dataSource.apply(snapshot, animatingDifferences: true)
+        @unknown default:
+            break
         }
     }
 }

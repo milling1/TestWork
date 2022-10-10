@@ -27,7 +27,7 @@ class StorageProvider {
         do {
             try context.save()
         } catch let error as NSError {
-            print("Nu se salveaza")
+            print("Not solved \(error)")
         }
     }
 }

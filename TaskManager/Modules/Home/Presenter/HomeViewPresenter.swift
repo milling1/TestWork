@@ -23,7 +23,6 @@ class HomeViewPresenterImp: HomeViewPresenter {
     }
     
     func viewDidLoad() {
-        let tasks = view?.fetchedResultsController.fetchedObjects ?? [ModelTask]()
-        view?.showTask(tasks: tasks)
+        view?.showTask()
     }
 }
