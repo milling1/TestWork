@@ -21,6 +21,12 @@ class TaskTableViewCell: UITableViewCell {
         setupTaskLabel()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        titleLabel.attributedText = NSAttributedString(string: "")
+        titleLabel.textColor = nil
+    }
+    
     private func setupCircleLabel() {
         circleLabel.layer.cornerRadius = circleLabel.frame.width / 2
         circleLabel.layer.masksToBounds = true

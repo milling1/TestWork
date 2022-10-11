@@ -11,14 +11,15 @@ import CoreData
 protocol HomeDataStorage {
     func getFetchedResultsController(isActive: Bool) -> NSFetchedResultsController<ModelTask>
     @discardableResult
-    func createTask(title: String, subtitle: String?, isActive: Bool, uuid: UUID?) -> ModelTask?
+    func createTask(title: String, subtitle: String?, isActive: Bool) -> ModelTask?
     func deleteTask(_ task: ModelTask)
     func getTaskById(_ id: NSManagedObjectID) -> ModelTask?
-    func updateTask(_ task: ModelTask, title: String, subtitle: String?, isActive: Bool, uuid: UUID)
+    func updateTask(_ task: ModelTask, title: String, subtitle: String?, isActive: Bool)
     func fetchTasks() -> [ModelTask]
     func save()
     func rollback()
     func deleteAllTasks()
+    func entityIsEmpty <T: NSManagedObject>(entityObject: T.Type) -> Bool
 }
 
 class HomeDataStorageImp: HomeDataStorage {
@@ -40,12 +41,11 @@ class HomeDataStorageImp: HomeDataStorage {
     }
 
     @discardableResult
-    func createTask(title: String, subtitle: String?, isActive: Bool, uuid: UUID?) -> ModelTask? {
+    func createTask(title: String, subtitle: String?, isActive: Bool) -> ModelTask? {
         let entity = ModelTask(context: context)
         entity.title = title
         entity.subtitle = subtitle
         entity.type = isActive
-        entity.uuid = uuid
         
         save()
         return entity
@@ -73,11 +73,10 @@ class HomeDataStorageImp: HomeDataStorage {
         return entities
     }
 
-    func updateTask(_ task: ModelTask, title: String, subtitle: String?, isActive: Bool, uuid: UUID) {
+    func updateTask(_ task: ModelTask, title: String, subtitle: String?, isActive: Bool) {
         task.title = title
         task.subtitle = subtitle
         task.type = isActive
-        task.uuid = uuid
         
         save()
     }
@@ -100,5 +99,12 @@ class HomeDataStorageImp: HomeDataStorage {
                 print("Not deleted \(error)")
             }
         }
+    }
+    
+    func entityIsEmpty <T: NSManagedObject>(entityObject: T.Type) -> Bool {
+        let request = NSFetchRequest<T>.init(entityName: String(describing: entityObject))
+        let count = try? context.count(for: request)
+        
+        return count == 0 ? true : false
     }
 }

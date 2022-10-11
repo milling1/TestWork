@@ -74,7 +74,7 @@ class AddTaskViewController: UIViewController, AddTaskView {
     }
     
     @IBAction func createTask(_ sender: Any) {
-        presenter.createTask(title: titleTextField.text ?? "", subtitle: subtitleTextField.text, isActive: true, uuid: UUID())
+        presenter.createTask(title: titleTextField.text ?? "", subtitle: subtitleTextField.text, isActive: true)
         navigationController?.popViewController(animated: true)
     }
 }

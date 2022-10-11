@@ -8,7 +8,7 @@
 import Foundation
 
 protocol AddViewPresenter {
-    func createTask(title: String, subtitle: String?, isActive: Bool, uuid: UUID?)
+    func createTask(title: String, subtitle: String?, isActive: Bool)
 }
 
 class AddViewPresenterImp: AddViewPresenter {
@@ -21,7 +21,7 @@ class AddViewPresenterImp: AddViewPresenter {
         self.dataStorage = dataStorage
     }
     
-    func createTask(title: String, subtitle: String?, isActive: Bool, uuid: UUID?) {
-        dataStorage.createTask(title: title, subtitle: subtitle, isActive: isActive, uuid: uuid)
+    func createTask(title: String, subtitle: String?, isActive: Bool) {
+        dataStorage.createTask(title: title, subtitle: subtitle, isActive: isActive)
     }
 }

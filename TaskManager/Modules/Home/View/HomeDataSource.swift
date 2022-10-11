@@ -16,7 +16,10 @@ class HomeDataSource: UITableViewDiffableDataSource<Section, ModelTask> {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return snapshot().sectionIdentifiers[section].localizedEnum()
+        if self.tableView(tableView, numberOfRowsInSection: section) > 0 {
+            return snapshot().sectionIdentifiers[section].localizedEnum()
+        }
+        return nil
     }
     
     override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {

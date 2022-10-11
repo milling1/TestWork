@@ -23,8 +23,11 @@ enum Section: String, CaseIterable {
 }
 
 protocol HomeView: AnyObject {
-    func showTask()
-//    var fetchedResultsController: NSFetchedResultsController<ModelTask>! { get set }
+    func showTask(activeTasks: [ModelTask], completedTasks: [ModelTask])
+    func deleteTask(tasks: ModelTask)
+    func insertTask(tasks: ModelTask)
+    func updateTask(tasks: ModelTask)
+    func hideImage(isHidden: Bool)
 }
 
 class HomeViewController: UIViewController, HomeView {
@@ -34,10 +37,8 @@ class HomeViewController: UIViewController, HomeView {
     @IBOutlet weak private var tableView: UITableView!
     @IBOutlet weak private var addButton: UIButton!
     
-    let imageView = UIImageView()
+    @IBOutlet weak var imageView: UIImageView!
     
-    var activeFetchedResultsController: NSFetchedResultsController<ModelTask>!
-    var completedFetchedResultsController: NSFetchedResultsController<ModelTask>!
     private var dataSource: HomeDataSource!
     private var snapshot: NSDiffableDataSourceSnapshot<Section, ModelTask>!
     var presenter: HomeViewPresenter!
@@ -49,12 +50,17 @@ class HomeViewController: UIViewController, HomeView {
         }
         configureTableView()
         configUI()
-        
-        configFetchController()
+        presenter.configFetchController()
+        configImageView()
         presenter.viewDidLoad()
         addButton.setTitle("", for: .normal)
     }
-   
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+    }
+    
     @IBAction private func addTaskButton(_ sender: Any) {
         let presenter = presenter.dataStorage
         let addPresenter = AddBuilderImp().buildViewController(dataStorage: presenter as! HomeDataStorageImp)
@@ -72,56 +78,60 @@ class HomeViewController: UIViewController, HomeView {
     
     private func configureTableView() {
         tableView.register(UINib(nibName: String(describing: TaskTableViewCell.self), bundle: nil), forCellReuseIdentifier: TaskTableViewCell.identifier)
+//        tableView.backgroundView = UIImageView(image: UIImage(named: "Group 21"))
+//        tableView.backgroundView?.isHidden = true
         tableView.delegate = self
         
         dataSource = HomeDataSource(tableView: tableView, cellProvider: { (tableView, indexPath, itemIdentifier) -> UITableViewCell? in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TaskTableViewCell.identifier, for: indexPath) as? TaskTableViewCell else {return UITableViewCell()}
-            switch indexPath.section {
-            case 0:
+            if itemIdentifier.type {
                 cell.configureCell(viewModel: itemIdentifier, backgroundColor: .systemBackground)
                 cell.circleLabel.backgroundColor = .systemBackground
-            case 1:
+            } else {
                 cell.configureCell(viewModel: itemIdentifier, backgroundColor: .taskManagerColor)
                 cell.changeCompletedTask()
-            default:
-                break
             }
+        
             return cell
         })
         snapshot = dataSource.snapshot()
     }
     
-    private func configFetchController() {
-        activeFetchedResultsController = presenter.dataStorage.getFetchedResultsController(isActive: true)
-        completedFetchedResultsController = presenter.dataStorage.getFetchedResultsController(isActive: false)
-        activeFetchedResultsController.delegate = self
-        completedFetchedResultsController.delegate = self
-        do {
-            try activeFetchedResultsController.performFetch()
-            try completedFetchedResultsController.performFetch()
-        } catch {
-            print("Fetch failed")
-        }
+    func showTask(activeTasks: [ModelTask], completedTasks: [ModelTask]) {
+        snapshot.appendSections([Section.Active, Section.Completed])
+        snapshot.appendItems(activeTasks, toSection: .Active)
+        snapshot.appendItems(completedTasks, toSection: .Completed)
+        
+        dataSource.apply(snapshot, animatingDifferences: true)
+        
+//        if !activeTasks.isEmpty && !completedTasks.isEmpty {
+//            imageView.isHidden = true
+//        }
     }
     
-    func showTask() {
-        let activeTasks = activeFetchedResultsController.fetchedObjects ?? []
-        if !activeTasks.isEmpty {
-            snapshot.appendSections([Section.Active])
-            snapshot.appendItems(activeTasks, toSection: Section.Active)
-        }
-        let completedTasks = completedFetchedResultsController.fetchedObjects ?? []
-        if !completedTasks.isEmpty {
-            snapshot.appendSections([Section.Completed])
-            snapshot.appendItems(completedTasks, toSection: Section.Completed)
-        }
+    func deleteTask(tasks: ModelTask) {
+        snapshot.deleteItems([tasks])
         dataSource.apply(snapshot, animatingDifferences: true)
-        if activeTasks.isEmpty && completedTasks.isEmpty {
-            imageView.frame = view.bounds
-            imageView.contentMode = .scaleAspectFit
-            imageView.image = UIImage(named: "Group 21")
-            view.addSubview(imageView)
-        }
+    }
+    
+    func insertTask(tasks: ModelTask) {
+        let section: Section = tasks.type ? .Active : .Completed
+        snapshot.appendItems([tasks], toSection: section)
+        dataSource.apply(snapshot, animatingDifferences: true)
+    }
+    
+    func updateTask(tasks: ModelTask) {
+        snapshot.reloadItems([tasks])
+        dataSource.apply(snapshot, animatingDifferences: true)
+    }
+    
+    func configImageView() {
+        imageView.frame = view.bounds
+        imageView.contentMode = .scaleAspectFit
+    }
+    
+    func hideImage(isHidden: Bool) {
+        imageView.isHidden = isHidden
     }
 }
 
@@ -132,10 +142,6 @@ extension HomeViewController: UITableViewDelegate {
             return UISwipeActionsConfiguration()
         }
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, sourceView, completionHandler) in
-            
-            var snapshot = self.dataSource.snapshot()
-            snapshot.deleteItems([item])
-            self.dataSource.apply(snapshot, animatingDifferences: true)
             self.presenter.dataStorage.deleteTask(item)
 
             completionHandler(true)
@@ -158,14 +164,7 @@ extension HomeViewController: UITableViewDelegate {
         }
             
         let completedAction = UIContextualAction(style: .normal, title: "Complete") { _, _, completitionHandler in
-            var snapshot = self.dataSource.snapshot()
-            snapshot.deleteItems([item])
-            if snapshot.sectionIdentifiers.contains(.Completed) == false {
-                snapshot.appendSections([.Completed])
-            }
-            snapshot.appendItems([item], toSection: .Completed)
-            self.dataSource.apply(snapshot, animatingDifferences: false)
-            self.presenter.dataStorage.updateTask(item, title: item.title ?? "", subtitle: item.subtitle, isActive: false, uuid: UUID())
+            self.presenter.dataStorage.updateTask(item, title: item.title ?? "", subtitle: item.subtitle, isActive: false)
         }
         completedAction.backgroundColor = .systemGreen
         completedAction.image = UIImage(systemName: "checkmark")
@@ -179,40 +178,6 @@ extension HomeViewController: UITableViewDelegate {
             tableView.isHidden = true
         } else {
             tableView.isHidden = false
-        }
-    }
-}
-
-extension HomeViewController: NSFetchedResultsControllerDelegate {
-    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
-                    didChange anObject: Any,
-                    at indexPath: IndexPath?,
-                    for type: NSFetchedResultsChangeType,
-                    newIndexPath: IndexPath?) {
-        guard let task = anObject as? ModelTask else { return }
-        var snapshot = dataSource.snapshot()
-        switch type {
-        case .delete:
-            snapshot.deleteItems([task])
-            let section: Section = task.type ? .Active : .Completed
-            if snapshot.itemIdentifiers(inSection: section).isEmpty {
-                snapshot.deleteSections([section])
-            }
-            dataSource.apply(snapshot, animatingDifferences: true)
-        case .insert:
-            if snapshot.sectionIdentifiers.contains(.Active) == false {
-                snapshot.appendSections([Section.Active])
-            }
-            snapshot.appendItems([task], toSection: .Active)
-            dataSource.apply(snapshot, animatingDifferences: true)
-        case .move:
-            break
-        case .update:
-            print("print")
-//            snapshot.reloadItems([task])
-//            dataSource.apply(snapshot, animatingDifferences: true)
-        @unknown default:
-            break
         }
     }
 }
