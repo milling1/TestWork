@@ -8,9 +8,10 @@
 import UIKit
 
 protocol AddTaskView: AnyObject {
+    func configWith(title: String, subtitle: String)
 }
 
-class AddTaskViewController: UIViewController, AddTaskView {
+class AddTaskViewController: UIViewController {
     
     struct Constants {
         static let textFieldCornerRadius: CGFloat = 8.00
@@ -24,6 +25,7 @@ class AddTaskViewController: UIViewController, AddTaskView {
     @IBOutlet weak private var scrollView: UIScrollView!
     
     var presenter: AddViewPresenter!
+    var delegate: HomeViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +33,7 @@ class AddTaskViewController: UIViewController, AddTaskView {
         setTextField()
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
         view.addGestureRecognizer(tapGR)
+        presenter.present()
     }
     
     private func setTextField() {
@@ -72,8 +75,8 @@ class AddTaskViewController: UIViewController, AddTaskView {
         view.endEditing(true)
     }
     
-    @IBAction func createTask(_ sender: Any) {
-        presenter.createTask(title: titleTextField.text ?? "", description: subtitleTextField.text)
+    @IBAction func saveTask(_ sender: Any) {
+        presenter.saveTask(title: titleTextField.text ?? "", subtitle: subtitleTextField.text, isActive: true)
         navigationController?.popViewController(animated: true)
     }
 }
@@ -88,5 +91,12 @@ extension AddTaskViewController: UITextFieldDelegate {
     
     func textFieldDidChangeSelection(_ textField: UITextField) {
         createTaskButton.isHidden = !titleTextField.hasText
+    }
+}
+
+extension AddTaskViewController: AddTaskView {
+    func configWith(title: String, subtitle: String) {
+        titleTextField.text = title
+        subtitleTextField.text = subtitle
     }
 }

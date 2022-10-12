@@ -9,7 +9,7 @@ import UIKit
 
 class TaskTableViewCell: UITableViewCell {
 
-    @IBOutlet weak private var circleLabel: UILabel!
+    @IBOutlet weak var circleLabel: UILabel!
     @IBOutlet weak private var titleLabel: UILabel!
     @IBOutlet weak private var descriptionLabel: UILabel!
 
@@ -19,6 +19,12 @@ class TaskTableViewCell: UITableViewCell {
         super.awakeFromNib()
         setupCircleLabel()
         setupTaskLabel()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        titleLabel.attributedText = NSAttributedString(string: "")
+        titleLabel.textColor = nil
     }
     
     private func setupCircleLabel() {
@@ -35,27 +41,16 @@ class TaskTableViewCell: UITableViewCell {
         descriptionLabel.numberOfLines = 0
     }
     
-    private func changeCompletedTask() {
+    func changeCompletedTask() {
         let attributeString: NSMutableAttributedString = NSMutableAttributedString(string: titleLabel.text ?? "")
         attributeString.addAttribute(NSAttributedString.Key.strikethroughStyle, value: 2, range: NSRange(location: 0, length: attributeString.length))
         titleLabel.attributedText = attributeString
         titleLabel.textColor = .completedColor
     }
     
-    func configureCell(viewModel: ModelTask) {
+    func configureCell(viewModel: ModelTask, backgroundColor: UIColor) {
         titleLabel.text = viewModel.title
-        descriptionLabel.text = viewModel.description
-        
-        let section = viewModel.type
-        
-        switch section {
-        case .Active:
-            backgroundColor = .systemBackground
-            circleLabel.backgroundColor = backgroundColor
-        case .Completed:
-            backgroundColor = .systemBackground
-            circleLabel.backgroundColor = .taskManagerColor
-            changeCompletedTask()
-        }
+        descriptionLabel.text = viewModel.subtitle
+        circleLabel.backgroundColor = backgroundColor
     }
 }
