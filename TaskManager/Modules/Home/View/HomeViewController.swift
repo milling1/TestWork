@@ -135,11 +135,13 @@ extension HomeViewController: UITableViewDelegate {
 
             completionHandler(true)
         }
-        let editAction = UIContextualAction(style: .normal, title: "Edit") { _,_,completionHandler  in
+        let editAction = UIContextualAction(style: .normal, title: "Edit") { [weak self] _,_,completionHandler  in
             
-            let presenter = self.presenter.dataStorage
-            let addPresenter = AddBuilderImp().buildViewController(dataStorage: presenter, task: self.dataSource.itemIdentifier(for: indexPath))
-            self.navigationController?.pushViewController(addPresenter, animated: true)
+            let presenter = self?.presenter.dataStorage
+            guard let presenter = presenter else { return }
+            
+            let addPresenter = AddBuilderImp().buildViewController(dataStorage: presenter, task: self?.dataSource.itemIdentifier(for: indexPath))
+            self?.navigationController?.pushViewController(addPresenter, animated: true)
 
             completionHandler(true)
         }
@@ -170,10 +172,6 @@ extension HomeViewController: UITableViewDelegate {
     }
     
     func checkTableViewisEmpty() {
-        if snapshot.itemIdentifiers(inSection: .Active).isEmpty && snapshot.itemIdentifiers(inSection: .Completed).isEmpty {
-            tableView.isHidden = true
-        } else {
-            tableView.isHidden = false
-        }
+        tableView.isHidden = snapshot.itemIdentifiers(inSection: .Active).isEmpty && snapshot.itemIdentifiers(inSection: .Completed).isEmpty
     }
 }

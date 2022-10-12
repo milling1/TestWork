@@ -27,10 +27,10 @@ class AddViewPresenterImp: AddViewPresenter {
     }
     
     func saveTask(title: String, subtitle: String?, isActive: Bool) {
-        if task == nil {
-            dataStorage.createTask(title: title, subtitle: subtitle, isActive: isActive)
+        if let editedTask = task {
+            dataStorage.updateTask(editedTask, title: title, subtitle: subtitle, isActive: editedTask.type)
         } else {
-            dataStorage.updateTask(task!, title: title, subtitle: subtitle, isActive: task!.type)
+            dataStorage.createTask(title: title, subtitle: subtitle, isActive: isActive)
         }
     }
     
