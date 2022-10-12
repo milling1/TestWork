@@ -11,7 +11,8 @@ import CoreData
 protocol HomeViewPresenter {
     func viewDidLoad()
     func configFetchController()
-//    func checkEmpty()
+    func updateTask(_ task: ModelTask)
+    func deleteTask(_ task: ModelTask)
     var dataStorage: HomeDataStorage { get }
 }
 
@@ -43,17 +44,25 @@ class HomeViewPresenterImp: NSObject, HomeViewPresenter, NSFetchedResultsControl
     func viewDidLoad() {
         let activeTasks = activeFetchedResultsController.fetchedObjects ?? []
         let completedTasks = completedFetchedResultsController.fetchedObjects ?? []
-//        checkEmpty()
-//        if activeTasks.isEmpty && completedTasks.isEmpty {
-//            view?.hideImage(isHidden: false)
-//        }
+        
+        view?.hideImage(isHidden: !activeTasks.isEmpty || !completedTasks.isEmpty)
+        
         view?.showTask(activeTasks: activeTasks, completedTasks: completedTasks)
     }
     
+    func updateTask(_ task: ModelTask) {
+        dataStorage.updateTask(task, title: task.title ?? "", subtitle: task.subtitle, isActive: false)
+    }
     
-//    func checkEmpty() {
-//        view?.hideImage(isHidden: dataStorage.entityIsEmpty(entityObject: ModelTask.self))
-//    }
+    func deleteTask(_ task: ModelTask) {
+        dataStorage.deleteTask(task)
+    }
+    
+    private func hideImage() {
+        let activeTasks = activeFetchedResultsController.fetchedObjects ?? []
+        let completedTasks = completedFetchedResultsController.fetchedObjects ?? []
+        view?.hideImage(isHidden: !activeTasks.isEmpty || !completedTasks.isEmpty)
+    }
 }
 
 extension HomeViewPresenterImp {
@@ -63,6 +72,8 @@ extension HomeViewPresenterImp {
                     for type: NSFetchedResultsChangeType,
                     newIndexPath: IndexPath?) {
         guard let task = anObject as? ModelTask else { return }
+        hideImage()
+        
         switch type {
         case .delete:
             view?.deleteTask(tasks: task)

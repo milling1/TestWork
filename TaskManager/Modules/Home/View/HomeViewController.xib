@@ -30,7 +30,7 @@
                     <color key="sectionIndexColor" systemColor="labelColor"/>
                     <color key="sectionIndexBackgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
-                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Group 21" translatesAutoresizingMaskIntoConstraints="NO" id="06F-z7-NOz">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Group 21" translatesAutoresizingMaskIntoConstraints="NO" id="06F-z7-NOz">
                     <rect key="frame" x="95" y="446" width="240" height="128"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>

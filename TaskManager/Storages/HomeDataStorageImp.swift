@@ -19,7 +19,6 @@ protocol HomeDataStorage {
     func save()
     func rollback()
     func deleteAllTasks()
-    func entityIsEmpty <T: NSManagedObject>(entityObject: T.Type) -> Bool
 }
 
 class HomeDataStorageImp: HomeDataStorage {
@@ -99,12 +98,5 @@ class HomeDataStorageImp: HomeDataStorage {
                 print("Not deleted \(error)")
             }
         }
-    }
-    
-    func entityIsEmpty <T: NSManagedObject>(entityObject: T.Type) -> Bool {
-        let request = NSFetchRequest<T>.init(entityName: String(describing: entityObject))
-        let count = try? context.count(for: request)
-        
-        return count == 0 ? true : false
     }
 }

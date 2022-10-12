@@ -55,15 +55,10 @@ class HomeViewController: UIViewController, HomeView {
         presenter.viewDidLoad()
         addButton.setTitle("", for: .normal)
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-    }
-    
+
     @IBAction private func addTaskButton(_ sender: Any) {
         let presenter = presenter.dataStorage
-        let addPresenter = AddBuilderImp().buildViewController(dataStorage: presenter as! HomeDataStorageImp)
+        let addPresenter = AddBuilderImp().buildViewController(dataStorage: presenter)
         navigationController?.pushViewController(addPresenter, animated: true)
     }
     
@@ -78,8 +73,6 @@ class HomeViewController: UIViewController, HomeView {
     
     private func configureTableView() {
         tableView.register(UINib(nibName: String(describing: TaskTableViewCell.self), bundle: nil), forCellReuseIdentifier: TaskTableViewCell.identifier)
-//        tableView.backgroundView = UIImageView(image: UIImage(named: "Group 21"))
-//        tableView.backgroundView?.isHidden = true
         tableView.delegate = self
         
         dataSource = HomeDataSource(tableView: tableView, cellProvider: { (tableView, indexPath, itemIdentifier) -> UITableViewCell? in
@@ -103,10 +96,6 @@ class HomeViewController: UIViewController, HomeView {
         snapshot.appendItems(completedTasks, toSection: .Completed)
         
         dataSource.apply(snapshot, animatingDifferences: true)
-        
-//        if !activeTasks.isEmpty && !completedTasks.isEmpty {
-//            imageView.isHidden = true
-//        }
     }
     
     func deleteTask(tasks: ModelTask) {
@@ -142,11 +131,17 @@ extension HomeViewController: UITableViewDelegate {
             return UISwipeActionsConfiguration()
         }
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (action, sourceView, completionHandler) in
-            self.presenter.dataStorage.deleteTask(item)
+            self.presenter.deleteTask(item)
 
             completionHandler(true)
         }
-        let editAction = UIContextualAction(style: .normal, title: "Edit") { _,_,_  in
+        let editAction = UIContextualAction(style: .normal, title: "Edit") { _,_,completionHandler  in
+            
+            let presenter = self.presenter.dataStorage
+            let addPresenter = AddBuilderImp().buildViewController(dataStorage: presenter, task: self.dataSource.itemIdentifier(for: indexPath))
+            self.navigationController?.pushViewController(addPresenter, animated: true)
+
+            completionHandler(true)
         }
         
         deleteAction.backgroundColor = .taskManagerColor
@@ -158,13 +153,14 @@ extension HomeViewController: UITableViewDelegate {
         let swipeConfiguration = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
         return swipeConfiguration
     }
+    
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         guard let item = self.dataSource.itemIdentifier(for: indexPath) else {
             return UISwipeActionsConfiguration()
         }
-            
+        
         let completedAction = UIContextualAction(style: .normal, title: "Complete") { _, _, completitionHandler in
-            self.presenter.dataStorage.updateTask(item, title: item.title ?? "", subtitle: item.subtitle, isActive: false)
+            self.presenter.updateTask(item)
         }
         completedAction.backgroundColor = .systemGreen
         completedAction.image = UIImage(systemName: "checkmark")
