@@ -81,6 +81,7 @@ class AddTaskViewController: UIViewController {
     }
 }
 
+//MARK: - UITextFieldDelegate
 extension AddTaskViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -94,6 +95,7 @@ extension AddTaskViewController: UITextFieldDelegate {
     }
 }
 
+//MARK: - AddTaskView
 extension AddTaskViewController: AddTaskView {
     func configWith(title: String, subtitle: String) {
         titleTextField.text = title

@@ -9,7 +9,7 @@ import Foundation
 import CoreData
 
 protocol HomeDataStorage {
-    func getFetchedResultsController(isActive: Bool) -> NSFetchedResultsController<ModelTask>
+    func getFetchedResultsController() -> NSFetchedResultsController<ModelTask>
     @discardableResult
     func createTask(title: String, subtitle: String?, isActive: Bool) -> ModelTask?
     func deleteTask(_ task: ModelTask)
@@ -29,13 +29,12 @@ class HomeDataStorageImp: HomeDataStorage {
         context = StorageProvider.shared.persistentContainer.viewContext
     }
 
-    func getFetchedResultsController(isActive: Bool) -> NSFetchedResultsController<ModelTask> {
+    func getFetchedResultsController() -> NSFetchedResultsController<ModelTask> {
         let request = ModelTask.fetchRequest()
         request.sortDescriptors = []
-        request.predicate = NSPredicate(format: "type == %@", NSNumber(value: isActive))
         return NSFetchedResultsController(fetchRequest: request,
                                           managedObjectContext: context,
-                                          sectionNameKeyPath: nil,
+                                          sectionNameKeyPath: "type",
                                           cacheName: nil)
     }
 

@@ -11,7 +11,7 @@ import CoreData
 protocol HomeViewPresenter {
     func viewDidLoad()
     func configFetchController()
-    func updateTask(_ task: ModelTask)
+    func switchTaskState(_ task: ModelTask)
     func deleteTask(_ task: ModelTask)
     var dataStorage: HomeDataStorage { get }
 }
@@ -20,48 +20,47 @@ class HomeViewPresenterImp: NSObject, HomeViewPresenter, NSFetchedResultsControl
     
     weak var view: HomeView?
     var dataStorage: HomeDataStorage
-    var activeFetchedResultsController: NSFetchedResultsController<ModelTask>!
-    var completedFetchedResultsController: NSFetchedResultsController<ModelTask>!
-
+    var fetchedResultsController: NSFetchedResultsController<ModelTask>!
+    
     init(view: HomeView, dataStorage: HomeDataStorage) {
         self.view = view
         self.dataStorage = dataStorage
     }
     
    func configFetchController() {
-        activeFetchedResultsController = dataStorage.getFetchedResultsController(isActive: true)
-        completedFetchedResultsController = dataStorage.getFetchedResultsController(isActive: false)
-        activeFetchedResultsController.delegate = self
-        completedFetchedResultsController.delegate = self
+        fetchedResultsController = dataStorage.getFetchedResultsController()
+        fetchedResultsController.delegate = self
+        
         do {
-            try activeFetchedResultsController.performFetch()
-            try completedFetchedResultsController.performFetch()
+            try fetchedResultsController.performFetch()
         } catch {
             print("Fetch failed")
         }
     }
     
     func viewDidLoad() {
-        let activeTasks = activeFetchedResultsController.fetchedObjects ?? []
-        let completedTasks = completedFetchedResultsController.fetchedObjects ?? []
+        configFetchController()
+        
+        let activeTasks = fetchedResultsController.fetchedObjects?.filter({$0.type}) ?? []
+        let completedTasks = fetchedResultsController.fetchedObjects?.filter({!$0.type}) ?? []
         
         view?.hideImage(isHidden: !activeTasks.isEmpty || !completedTasks.isEmpty)
         
         view?.showTask(activeTasks: activeTasks, completedTasks: completedTasks)
     }
     
-    func updateTask(_ task: ModelTask) {
-        dataStorage.updateTask(task, title: task.title ?? "", subtitle: task.subtitle, isActive: false)
+    func switchTaskState(_ task: ModelTask) {
+        task.type.toggle()
+        dataStorage.save()
     }
     
     func deleteTask(_ task: ModelTask) {
         dataStorage.deleteTask(task)
     }
     
-    private func hideImage() {
-        let activeTasks = activeFetchedResultsController.fetchedObjects ?? []
-        let completedTasks = completedFetchedResultsController.fetchedObjects ?? []
-        view?.hideImage(isHidden: !activeTasks.isEmpty || !completedTasks.isEmpty)
+    func hideImage() {
+        let tasks = fetchedResultsController.fetchedObjects ?? []
+        view?.hideImage(isHidden: !tasks.isEmpty)
     }
 }
 
@@ -80,7 +79,7 @@ extension HomeViewPresenterImp {
         case .insert:
             view?.insertTask(tasks: task)
         case .move:
-            break
+            view?.moveTask(task: task)
         case .update:
             view?.updateTask(tasks: task)
         @unknown default:
