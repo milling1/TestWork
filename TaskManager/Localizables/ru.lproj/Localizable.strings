@@ -6,7 +6,7 @@
   
 */
 
-"home.taskLabel" = "Диспечер задач";
+"home.taskLabel" = "Диспетчер задач";
 "home.editButton" = "Редактирование";
 "home.activeSection" = "Активные";
 "home.completedSection" = "Завершенные";

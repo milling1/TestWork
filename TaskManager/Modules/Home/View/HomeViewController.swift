@@ -28,6 +28,7 @@ protocol HomeView: AnyObject {
     func insertTask(tasks: ModelTask)
     func updateTask(tasks: ModelTask)
     func hideImage(isHidden: Bool)
+    func moveTask(task: ModelTask)
 }
 
 class HomeViewController: UIViewController, HomeView {
@@ -36,8 +37,7 @@ class HomeViewController: UIViewController, HomeView {
     @IBOutlet weak private var taskLabel: UILabel!
     @IBOutlet weak private var tableView: UITableView!
     @IBOutlet weak private var addButton: UIButton!
-    
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak private var imageView: UIImageView!
     
     private var dataSource: HomeDataSource!
     private var snapshot: NSDiffableDataSourceSnapshot<Section, ModelTask>!
@@ -50,7 +50,6 @@ class HomeViewController: UIViewController, HomeView {
         }
         configureTableView()
         configUI()
-        presenter.configFetchController()
         configImageView()
         presenter.viewDidLoad()
         addButton.setTitle("", for: .normal)
@@ -87,6 +86,7 @@ class HomeViewController: UIViewController, HomeView {
         
             return cell
         })
+        dataSource.delegate = self
         snapshot = dataSource.snapshot()
     }
     
@@ -122,8 +122,16 @@ class HomeViewController: UIViewController, HomeView {
     func hideImage(isHidden: Bool) {
         imageView.isHidden = isHidden
     }
+    
+    func moveTask(task: ModelTask) {
+        snapshot.deleteItems([task])
+        snapshot.appendItems([task], toSection: task.type ? .Active : .Completed)
+        snapshot.reloadItems([task])
+        dataSource.apply(snapshot, animatingDifferences: true)
+    }
 }
 
+//MARK: - UITableViewDelegate
 extension HomeViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -162,7 +170,9 @@ extension HomeViewController: UITableViewDelegate {
         }
         
         let completedAction = UIContextualAction(style: .normal, title: "Complete") { _, _, completitionHandler in
-            self.presenter.updateTask(item)
+            self.presenter.switchTaskState(item)
+            
+            completitionHandler(true)
         }
         completedAction.backgroundColor = .systemGreen
         completedAction.image = UIImage(systemName: "checkmark")
@@ -173,5 +183,12 @@ extension HomeViewController: UITableViewDelegate {
     
     func checkTableViewisEmpty() {
         tableView.isHidden = snapshot.itemIdentifiers(inSection: .Active).isEmpty && snapshot.itemIdentifiers(inSection: .Completed).isEmpty
+    }
+}
+
+//MARK: - HomeDataSourceDelegate
+extension HomeViewController: HomeDataSourceDelegate {
+    func didChangeSection(task: ModelTask) {
+        presenter.switchTaskState(task)
     }
 }
