@@ -58,7 +58,7 @@ class HomeViewPresenterImp: NSObject, HomeViewPresenter, NSFetchedResultsControl
         dataStorage.deleteTask(task)
     }
     
-    func hideImage() {
+    private func hideImage() {
         let tasks = fetchedResultsController.fetchedObjects ?? []
         view?.hideImage(isHidden: !tasks.isEmpty)
     }
