@@ -67,7 +67,6 @@ class HomeDataStorageImp: HomeDataStorage {
         guard let entities = try? context.fetch(fetchRequest) else {
             return []
         }
-
         return entities
     }
 

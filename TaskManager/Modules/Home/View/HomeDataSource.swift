@@ -41,10 +41,6 @@ class HomeDataSource: UITableViewDiffableDataSource<Section, ModelTask> {
         return true
     }
     
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         guard let fromIndex = itemIdentifier(for: sourceIndexPath),
               sourceIndexPath != destinationIndexPath else { return }

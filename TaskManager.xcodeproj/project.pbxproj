@@ -19,7 +19,6 @@
 		CE418B1828D1D7B5000CEADD /* TaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE418B1628D1D7B5000CEADD /* TaskTableViewCell.swift */; };
 		CE418B1928D1D7B5000CEADD /* TaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE418B1728D1D7B5000CEADD /* TaskTableViewCell.xib */; };
 		CE41C02028E5F5D300EDAB3E /* LocalizableString.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE41C01F28E5F5D300EDAB3E /* LocalizableString.swift */; };
-		CE41EC7D28F6D41F0092FCB2 /* TaskManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE41EC7C28F6D41F0092FCB2 /* TaskManagerTests.swift */; };
 		CE41EC8428F6D4F80092FCB2 /* HomeViewPresenterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE41EC8328F6D4F80092FCB2 /* HomeViewPresenterTest.swift */; };
 		CE42261E28DC4D5200066B54 /* HomeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE42261D28DC4D5200066B54 /* HomeBuilder.swift */; };
 		CE6192F228D34BF300E3179F /* HomeViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6192F128D34BF300E3179F /* HomeViewPresenter.swift */; };
@@ -64,7 +63,6 @@
 		CE418B1728D1D7B5000CEADD /* TaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskTableViewCell.xib; sourceTree = "<group>"; };
 		CE41C01F28E5F5D300EDAB3E /* LocalizableString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizableString.swift; sourceTree = "<group>"; };
 		CE41EC7A28F6D41F0092FCB2 /* TaskManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaskManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CE41EC7C28F6D41F0092FCB2 /* TaskManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskManagerTests.swift; sourceTree = "<group>"; };
 		CE41EC8328F6D4F80092FCB2 /* HomeViewPresenterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewPresenterTest.swift; sourceTree = "<group>"; };
 		CE42261D28DC4D5200066B54 /* HomeBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeBuilder.swift; sourceTree = "<group>"; };
 		CE6192F128D34BF300E3179F /* HomeViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewPresenter.swift; sourceTree = "<group>"; };
@@ -183,7 +181,6 @@
 				CE647BA928F7F7BF005B9EFD /* TestAddViewPresenter */,
 				CE41EC7328F6D25C0092FCB2 /* TestHomeViewPresenter */,
 				CE647BA728F7F5F4005B9EFD /* MockDataStorage.swift */,
-				CE41EC7C28F6D41F0092FCB2 /* TaskManagerTests.swift */,
 			);
 			path = TaskManagerTests;
 			sourceTree = "<group>";
@@ -393,7 +390,6 @@
 				CE647BAD28F7FA2F005B9EFD /* MockAddTaskView.swift in Sources */,
 				CE647BAF28F7FBC7005B9EFD /* AddViewPresenterTest.swift in Sources */,
 				CE41EC8428F6D4F80092FCB2 /* HomeViewPresenterTest.swift in Sources */,
-				CE41EC7D28F6D41F0092FCB2 /* TaskManagerTests.swift in Sources */,
 				CE647BA828F7F5F4005B9EFD /* MockDataStorage.swift in Sources */,
 				CE647BA628F7F4B9005B9EFD /* MockHomeView.swift in Sources */,
 			);

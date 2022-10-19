@@ -10,9 +10,7 @@ import XCTest
 import CoreData
 
 class MockHomeView: HomeView {
-   
-    
-    
+ 
     var activeTaskTest: [ModelTask]?
     var completedTasktest: [ModelTask]?
     var isImageNotHidden: Bool = false
